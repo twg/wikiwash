@@ -1,16 +1,17 @@
 var _ = require('lodash');
+var Q = require('q');
 var DiffFormatter = require('../helpers/DiffFormatter');
 var WikipediaHelper = require('../helpers/WikipediaHelper');
 var log = require('../config/log').createLoggerForFile(__filename);
 
 var PageProcessor = require('../helpers/PageProcessor');
 
-function find(revisionIDs, options, callback) {
+function find(revisionIDs, options) {
   if (!Array.isArray(revisionIDs)) {
     revisionIDs = [ revisionIDs ];
   }
 
-  WikipediaHelper.getAndCacheRevisions(revisionIDs, options).then(function(blobs) {
+  return WikipediaHelper.getAndCacheRevisions(revisionIDs, options).then(function(blobs) {
     if (blobs.length === 2) {
       var prevHtml = blobs[1];
       var revHtml = blobs[0];
@@ -26,15 +27,7 @@ function find(revisionIDs, options, callback) {
   }).then(function(data) {
     data.content = PageProcessor.process(data.content);
 
-    callback(undefined, data);
-  }).catch(function(err) {
-    log.error(err);
-
-    callback(err, {
-      content: "An error occurred.",
-      added: 0,
-      removed: 0
-    });
+    return data;
   });
 }
 

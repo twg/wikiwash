@@ -9,22 +9,23 @@ function PagesController() {
   this.cycling = true;
 }
 
-PagesController.prototype.show = function(pageName, callback) {
+PagesController.prototype.show = function(pageName) {
   var _this = this;
 
-  Page.findRevisions(pageName, this.currentRevisionIds, { site: config.wikipediaSite }, function(err, pageData) {
-    if (pageData.revisions.length) {
+  return Page.findRevisions(pageName, this.currentRevisionIds, { site: config.wikipediaSite })
+    .then(function(pageData) {
+      if (!pageData.revisions.length) {
+        return { };
+      }
+
       var ids = pageData.revisions.map(function(revision) {
         return revision.revid;
       });
 
       _this.currentRevisionIds = _this.currentRevisionIds.concat(ids);
 
-      callback(undefined, pageData);
-    } else {
-      callback(undefined, { });
-    }
-  });
+      return pageData;
+    });
 };
 
 module.exports = PagesController;

@@ -1,5 +1,5 @@
-var log  = require('../config/log').createLoggerForFile(__filename);
-var fs   = require('fs');
+var log = require('../config/log').createLoggerForFile(__filename);
+var fs = require("q-io/fs");
 var path = require('path');
 
 var TopArticles = require('../helpers/TopArticles');
@@ -11,29 +11,21 @@ var suggestionsFilename = path.join(__dirname, '..', '..', 'data', TopArticles.t
 var suggestionsCache = [ ];
 var suggestionsLastMtime = 0;
 
-module.exports.index = function(callback) {
-  fs.stat(suggestionsFilename, function(err, stats) {
-    if (err) {
-      log.warn("Could not load suggestion data: " + err.toString());
-
-      callback(err);
-    } else {
-      if (stats.mtime !== suggestionsLastMtime) {
-        fs.readFile(suggestionsFilename, function(err, data) {
-          if (err) {
-            log.warn("Could not read suggestion data: " + err.toString());
-            
-            callback(err);
-          } else {
-            suggestionsLastMtime = stats.mtime;
-            suggestionsCache = JSON.parse(data.toString());
-
-            callback(undefined, suggestionsCache);
-          }
-        });
-      } else {
-        callback(undefined, suggestionsCache);
+module.exports.index = function(options) {
+  return fs.stat(suggestionsFilename)
+    .then(function(stats) {
+      if (stats.mtime == suggestionsLastMtime) {
+        return suggestionsCache;
       }
-    }
-  });
+
+      return fs.readFile(suggestionsFilename).then(function(data) {
+        suggestionsLastMtime = stats.mtime;
+        suggestionsCache = JSON.parse(data.toString());
+
+        return suggestionsCache;
+      });
+    })
+    .catch(function(err) {
+      log.warn("Could not load suggestion data: " + err.toString());
+    });
 };

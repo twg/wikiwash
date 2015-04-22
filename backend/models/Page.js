@@ -3,10 +3,9 @@ var _ = require('lodash');
 var geoip = require('geoip-lite');
 var country = require('country-code-lookup');
 
+var config = require('../config/config');
 var WikipediaHelper = require('../helpers/WikipediaHelper');
 var log = require('../config/log').createLoggerForFile(__filename);
-
-var endPointDefault = 'en.wikipedia.org';
 
 var revisionRequestLimit = 50;
 
@@ -68,14 +67,14 @@ var pageData = function(body, lastRevisionIds) {
   };
 };
 
-function findRevisions(pageName, lastRevisionIds, _options, callback) {
+function findRevisions(pageName, lastRevisionIds, _options) {
   var options = {
     method: 'GET',
-    host: _options && _options.endPoint || endPointDefault,
+    host: _options && _options.endPoint || config.wikipediaSite,
     path: queryPath(pageName)
   };
 
-  http.request(options).then(function(response) {
+  return http.request(options).then(function(response) {
     return response.body.read();
   }).then(function(body) {
     data = pageData(body, lastRevisionIds);
@@ -84,8 +83,8 @@ function findRevisions(pageName, lastRevisionIds, _options, callback) {
       data.revisions.map(function(e) { return e.revid; })
     );
 
-    callback(undefined, data);
-  }).done();
+    return data;
+  });
 };
 
 module.exports = {

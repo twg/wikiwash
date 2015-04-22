@@ -9,10 +9,8 @@ function emitPageData(pageName, pages, socket) {
     return;
   }
 
-  pages.show(pageName, function(err, pageData) {
-    if (!err) {
-      socket.emit('new revisions', pageData);
-    }
+  pages.show(pageName).then(function(pageData) {
+    socket.emit('new revisions', pageData);
   });
 
   setTimeout(function() {
@@ -22,11 +20,11 @@ function emitPageData(pageName, pages, socket) {
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
-    log.info('a user connected');
+    log.info('Connection from ' + socket.conn.remoteAddress);
     
-    socket.on('cycle page data', function(params) {
-      var pages = new PagesController();
+    var pages = new PagesController();
 
+    socket.on('cycle page data', function(params) {
       emitPageData(params.page, pages, socket);
       
       socket.on('stop cycle', function() {

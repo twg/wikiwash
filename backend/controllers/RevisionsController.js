@@ -1,10 +1,8 @@
 var log = require('../config/log').createLoggerForFile(__filename);
 var Revision = require('../models/Revision');
 
-function show(revisionId, options, callback) {
-  Revision.find(revisionId, options, function(err, data) {
-    callback(err, data);
-  });
+function show(revisionId, options) {
+  return Revision.find(revisionId, options);
 }
 
 module.exports = {
