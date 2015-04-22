@@ -8,14 +8,18 @@ var refreshInterval = 30000;
 // REFACTOR: The interface between PagesController and this component is
 //           somewhat wobbly, especially the refresh timer part.
 
-function emitPageData(pageName, pagesController, socket) {
+function emitPageData(pageName, pagesController, socket, _options) {
   if (!socket.connected || !pagesController.cycling) {
     return;
   }
 
+  var options = {
+    site: _options && _options.site || config.wikipediaSite
+  }
+
   log.info('Page cycle request: ' + pageName);
 
-  pagesController.show(pageName, { site: config.wikipediaSite })
+  pagesController.show(pageName, options)
     .then(function(pageData) {
       log.info('Page cycle finished: ' + pageName);
 
@@ -39,7 +43,7 @@ module.exports = function(io) {
         pagesController.timer = null;
       }
 
-      emitPageData(params.page, pagesController, socket);
+      emitPageData(params.page, pagesController, socket, params);
       
       socket.on('stop cycle', function() {
         if (pagesController.timer) {

@@ -9,10 +9,14 @@ function PagesController() {
   this.cycling = true;
 }
 
-PagesController.prototype.show = function(pageName) {
+PagesController.prototype.show = function(pageName, _options) {
   var _this = this;
 
-  return Page.findRevisions(pageName, this.currentRevisionIds, { site: config.wikipediaSite })
+  var options = {
+    site: _options ? _options.site : config.wikipediaSite
+  }
+
+  return Page.findRevisions(pageName, this.currentRevisionIds, options)
     .then(function(pageData) {
       if (!pageData.revisions.length) {
         return { };

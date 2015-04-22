@@ -16,7 +16,7 @@ function getSelfClosingTagName(tag) {
   }
 };
 
-function Difference(part) {
+function DiffSegment(part) {
   this.isAddition = part[0] === 1;
   this.isDeletion = part[0] === -1;
   this.content = part[1];
@@ -35,7 +35,7 @@ function Difference(part) {
   this.tagName = openingTagName || closingTagName;
 }
 
-Difference.prototype.toString = function() {
+DiffSegment.prototype.toString = function() {
   var prefix = " ";
 
   if (this.isAddition) {
@@ -48,4 +48,4 @@ Difference.prototype.toString = function() {
   return prefix + " " + this.content;
 };
 
-module.exports = Difference;
+module.exports = DiffSegment;
