@@ -1,5 +1,5 @@
-var http = require('q-io/http');
 var Q = require('q');
+var http = require('q-io/http');
 var _ = require('lodash');
 var fs = require('fs');
 
@@ -9,16 +9,16 @@ var config = require('../config/config');
 var cache = require('till')(config.cache.host, config.cache.port);
 var cacheSuffix = ".html";
 
-var endPoint = 'en.wikipedia.org';
+var endPointDefault = 'en.wikipedia.org';
 
 function queryPath(revisionId) {
   return "/w/api.php?action=parse&format=json&maxlag=5&oldid=" + revisionId;
 }
 
-function getRevision(revisionId) {
+function getRevision(revisionId, _options) {
   var options = {
     method: 'GET',
-    host: endPoint,
+    host: _options && _options.endPoint || endPointDefault,
     path: queryPath(revisionId)
   };
 
@@ -57,13 +57,14 @@ function getHTMLFromResponse(json) {
   return JSON.parse(json).parse.text['*'];
 }
 
-function fetchAndCacheRevisionID(revisionID) {
+function fetchAndCacheRevisionID(revisionID, options) {
   var fetchStart = +new Date();
 
-  return getRevision(revisionID).then(function(data) {
+  return getRevision(revisionID, options).then(function(data) {
     //  Save our fetched result to the cache, but don't
     //  bother waiting for it to complete before continuing.
     var fetchEnd = +new Date();
+
     log.info("Fetched revision " + revisionID + " from Wikipedia. (took " + (fetchEnd - fetchStart) + " msec)");
 
     data = getHTMLFromResponse(data);
@@ -79,7 +80,7 @@ function fetchAndCacheRevisionID(revisionID) {
   });
 }
 
-function getAndCacheRevisions(revisionIDs) {
+function getAndCacheRevisions(revisionIDs, options) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
@@ -92,10 +93,12 @@ function getAndCacheRevisions(revisionIDs) {
     return cache.get(revisionID + cacheSuffix).then(function(reply) {
       if (reply) {
         var fetchEnd = +new Date();
+
         log.info("Found revision " + revisionID + " in cache. (took " + (fetchEnd - fetchStart) + " msec)");
+        
         return reply;
       } else {
-        return fetchAndCacheRevisionID(revisionID);
+        return fetchAndCacheRevisionID(revisionID, options);
       }
     });
   }));
@@ -129,17 +132,16 @@ function processCacheQueue() {
   }
 }
 
-function preemptivelyCache(revisionIDs) {
+function preemptivelyCache(revisionIDs, options) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
   //  slower data from Wikipedia itself.
   cache.isActive().then(function(isActive) {
     if (isActive) {
-      var cacheQueueBeingProcessed = (cacheQueue.length > 0);
+      var cacheQueueBeingProcessed = cacheQueue.length > 0;
       
-      cacheQueue.push.apply(cacheQueue, revisionIDs);
-      cacheQueue = cacheQueue.slice(0, cacheQueueLimit);
+      cacheQueue = cacheQueue.concat(revisionIDs).slice(0, cacheQueueLimit);
 
       if (!cacheQueueBeingProcessed) {
         processCacheQueue();

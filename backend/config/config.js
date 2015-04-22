@@ -7,4 +7,5 @@ module.exports = {
     host: 'localhost',
     port: 5632,
   },
+  wikipediaSite: 'en.wikipedia.org'
 };

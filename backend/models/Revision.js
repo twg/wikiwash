@@ -5,12 +5,12 @@ var log = require('../config/log').createLoggerForFile(__filename);
 
 var PageProcessor = require('../helpers/PageProcessor');
 
-module.exports.find = function (revisionIDs, callback) {
+function find(revisionIDs, options, callback) {
   if (!Array.isArray(revisionIDs)) {
     revisionIDs = [ revisionIDs ];
   }
 
-  WikipediaHelper.getAndCacheRevisions(revisionIDs).then(function(blobs) {
+  WikipediaHelper.getAndCacheRevisions(revisionIDs, options).then(function(blobs) {
     if (blobs.length === 2) {
       var prevHtml = blobs[1];
       var revHtml = blobs[0];
@@ -36,4 +36,8 @@ module.exports.find = function (revisionIDs, callback) {
       removed: 0
     });
   });
+}
+
+module.exports = {
+  find: find
 };

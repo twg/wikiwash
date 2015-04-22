@@ -1,4 +1,6 @@
-var expect = require('chai').expect;
+var helper = require('../helper');
+var expect = helper.expect;
+
 var DiffFormatter = require('../../helpers/DiffFormatter');
 
 //  For tests, remove unnecessary whitespace from HTML.

@@ -1,4 +1,6 @@
-var expect = require('chai').expect;
+var helper = require('../helper');
+var expect = helper.expect;
+
 var Revision = require('../../models/Revision');
 
 describe('Revision', function() {

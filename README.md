@@ -5,7 +5,7 @@
        \   /\   /    | | |   <  | |  \ V  V / | (_| | \__ \ | | | |
         \_/  \_/     |_| |_|\_\ |_|   \_/\_/   \__,_| |___/ |_| |_|
 
-Track whitewashing on Wikipedia. Try out WikiWash at [http://wikiwash.metronews.ca/](http://wikiwash.metronews.ca/)
+Track whitewashing on Wikipedia. Try out WikiWash at [http://en.wikiwash.org/](http://en.wikiwash.org/)
 
 A project by [The Working Group](http://twg.ca), in collaboration with
 [the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
@@ -76,7 +76,7 @@ pull request to merge changes back into the application.
 
 To deploy WikiWash to your own servers, you'll have to set up
 [PM2](https://github.com/Unitech/pm2) on your own servers and change
-[ecosystem.json](https://github.com/twg/wikiwash/blob/master/ecosystem.json)
+[`ecosystem.json`](https://github.com/twg/wikiwash/blob/master/ecosystem.json)
 to point at your new server environments. Once that's done, deployment is as
 simple as:
 
@@ -90,8 +90,8 @@ Till server is not required, but will make WikiWash noticeably faster for
 frequently-accessed pages. (An example configuration file for Till is included
 at `example/till.config.example.json`.)
 
-WikiWash also includes two example cronjobs (`wikiwash-fetch.cron` and
-`wikiwash-cache.cron`) that can run in the background to speed up WikiWash and
+WikiWash also includes two example cronjobs, `wikiwash-fetch.cron` and
+`wikiwash-cache.cron`, that can run in the background to speed up WikiWash and
 to display the most-read Wikipedia articles from the last hour. Note that
 these cronjobs call scripts in the `scripts` folder, and do download large
 amounts of data from Wikimedia's dump server.

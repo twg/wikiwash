@@ -1,5 +1,7 @@
 var cheerio = require('cheerio');
 
+// FIX: Need to pass in the base URI used for this page so relative links
+//      can be resolved properly.
 function process(html) {
   var doc = cheerio.load(html);
 
@@ -9,6 +11,7 @@ function process(html) {
 
     if (href.match(/File:/)) {
       // Image pages cannot be processed within the WikiWash application
+      // FIX: Remove en. dependency
       href = 'http://en.wikipedia.org' + href;
 
       // Open in a new window

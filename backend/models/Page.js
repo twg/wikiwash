@@ -1,11 +1,12 @@
 var http = require('q-io/http');
 var _ = require('lodash');
-var WikipediaHelper = require('../helpers/WikipediaHelper');
 var geoip = require('geoip-lite');
 var country = require('country-code-lookup');
+
+var WikipediaHelper = require('../helpers/WikipediaHelper');
 var log = require('../config/log').createLoggerForFile(__filename);
 
-var endPoint = 'en.wikipedia.org';
+var endPointDefault = 'en.wikipedia.org';
 
 var revisionRequestLimit = 50;
 
@@ -67,10 +68,10 @@ var pageData = function(body, lastRevisionIds) {
   };
 };
 
-function findRevisions(pageName, lastRevisionIds, callback) {
+function findRevisions(pageName, lastRevisionIds, _options, callback) {
   var options = {
     method: 'GET',
-    host: endPoint,
+    host: _options && _options.endPoint || endPointDefault,
     path: queryPath(pageName)
   };
 
