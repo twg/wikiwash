@@ -9,41 +9,50 @@ var SuggestionsController = require('../controllers/SuggestionsController');
 var config = require('./config');
 
 function wikipediaSite(req) {
-  return req.host;
+  var first = req.host.split('.')[0];
+
+  switch (first) {
+    case 'en':
+    case 'fr':
+    case 'de':
+      return first + 'wikipedia.org';
+    default:
+      return config.wikipediaSite;
+  }
 }
 
-module.exports = function(app, io) {
-  app.get('/api/revisions/:id', function(req, res) {
-    console.log(wikipediaSite(req));
+var router = require('express')();
 
-    var revisionId = req.params.id;
+module.exports = router;
 
-    if (req.query.diff) {
-      revisionId = [ revisionId, req.query.diff ];
-    }
+router.get('/api/revisions/:id', function(req, res) {
+  var revisionId = req.params.id;
 
-    RevisionsController.show(revisionId, { site: config.wikipediaSite })
-      .then(function(data) {
-        res.json(data);
-      });
-  });
+  if (req.query.diff) {
+    revisionId = [ revisionId, req.query.diff ];
+  }
 
-  app.get('/api/suggestions', function(req, res) {
-    SuggestionsController.index({ site: config.wikipediaSite })
-      .then(function(data) {
-        res.json(data);
-      });
-  });
-  
-  app.get('/docs', function(req, res) {
-    res.sendfile('docs.html', { root: root });
-  });
+  RevisionsController.show(revisionId, { site: wikipediaSite(req) })
+    .then(function(data) { 
+      res.json(data);
+    });
+});
 
-  app.get('/', function(req, res) {
-    res.sendfile('index.html', { root: root });
-  });
+router.get('/api/suggestions', function(req, res) {
+  SuggestionsController.index({ site: wikipediaSite(req) })
+    .then(function(data) {
+      res.json(data);
+    });
+});
 
-  app.all('/*', function(req, res) {
-    res.redirect('/#!' + req.path);
-  });
-};
+router.get('/docs', function(req, res) {
+  res.sendfile('docs.html', { root: root });
+});
+
+router.get('/', function(req, res) {
+  res.sendfile('index.html', { root: root });
+});
+
+router.all('/*', function(req, res) {
+  res.redirect('/#!' + req.path);
+});

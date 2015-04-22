@@ -1,34 +1,52 @@
+var config = require('./config');
 var PagesController = require('../controllers/PagesController');
 
 var log = require('./log').createLoggerForFile(__filename);
 
-var delay = 30000;
+var refreshInterval = 30000;
 
-function emitPageData(pageName, pages, socket) {
-  if (!socket.connected || !pages.cycling) {
+// REFACTOR: The interface between PagesController and this component is
+//           somewhat wobbly, especially the refresh timer part.
+
+function emitPageData(pageName, pagesController, socket) {
+  if (!socket.connected || !pagesController.cycling) {
     return;
   }
 
-  pages.show(pageName).then(function(pageData) {
-    socket.emit('new revisions', pageData);
-  });
+  log.info('Page cycle request: ' + pageName);
 
-  setTimeout(function() {
-    emitPageData(pageName, pages, socket);
-  }, delay);
+  pagesController.show(pageName, { site: config.wikipediaSite })
+    .then(function(pageData) {
+      log.info('Page cycle finished: ' + pageName);
+
+      socket.emit('new revisions', pageData);
+    })
+
+  pagesController.timer = setTimeout(function() {
+    emitPageData(pageName, pagesController, socket);
+  }, refreshInterval);
 }
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
     log.info('Connection from ' + socket.conn.remoteAddress);
     
-    var pages = new PagesController();
+    var pagesController = new PagesController();
 
     socket.on('cycle page data', function(params) {
-      emitPageData(params.page, pages, socket);
+      if (pagesController.timer) {
+        clearTimeout(pagesController.timer);
+        pagesController.timer = null;
+      }
+
+      emitPageData(params.page, pagesController, socket);
       
       socket.on('stop cycle', function() {
-        pages.cycling = false;
+        if (pagesController.timer) {
+          clearTimeout(pagesController.timer);
+        }
+
+        pagesController.timer = null;
       });
     });
     

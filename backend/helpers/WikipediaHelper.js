@@ -9,8 +9,6 @@ var config = require('../config/config');
 var cache = require('till')(config.cache.host, config.cache.port);
 var cacheSuffix = ".html";
 
-var endPointDefault = 'en.wikipedia.org';
-
 function queryPath(revisionId) {
   return "/w/api.php?action=parse&format=json&maxlag=5&oldid=" + revisionId;
 }
@@ -18,7 +16,7 @@ function queryPath(revisionId) {
 function getRevision(revisionId, _options) {
   var options = {
     method: 'GET',
-    host: _options && _options.endPoint || endPointDefault,
+    host: _options && _options.site || config.wikipediaSite,
     path: queryPath(revisionId)
   };
 

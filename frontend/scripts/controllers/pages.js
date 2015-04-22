@@ -44,6 +44,7 @@ angular.module('wikiwash').controller('PagesController',
     socketService.socket.emit('cycle page data', {
       page: locationParams.getPage()
     });
+    
     socketService.cycling = true;
 
     $scope.$watch('loading', function() {

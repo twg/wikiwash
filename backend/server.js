@@ -34,7 +34,7 @@ app.use(partials());
 
 app.set('views', path.join(publicDir, 'views'));
 
-routes(app);
+app.use(routes);
 events(io);
 
 http.listen(process.env.PORT || 3000, function() {

@@ -70,21 +70,22 @@ var pageData = function(body, lastRevisionIds) {
 function findRevisions(pageName, lastRevisionIds, _options) {
   var options = {
     method: 'GET',
-    host: _options && _options.endPoint || config.wikipediaSite,
+    host: _options && _options.site || config.wikipediaSite,
     path: queryPath(pageName)
   };
 
-  return http.request(options).then(function(response) {
-    return response.body.read();
-  }).then(function(body) {
-    data = pageData(body, lastRevisionIds);
-    
-    WikipediaHelper.preemptivelyCache(
-      data.revisions.map(function(e) { return e.revid; })
-    );
+  return http.request(options)
+    .then(function(response) {
+      return response.body.read();
+    }).then(function(body) {
+      data = pageData(body, lastRevisionIds);
+      
+      WikipediaHelper.preemptivelyCache(
+        data.revisions.map(function(e) { return e.revid; })
+      );
 
-    return data;
-  });
+      return data;
+    });
 };
 
 module.exports = {
