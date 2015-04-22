@@ -12,7 +12,7 @@
   .search-splash
     form(ng-submit="search()")
       input.button(type='submit' value='WASH' ng-click='submit()')
-      input.bar(type="search" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()")
+      input.bar(type="search" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()" id="search")
 
   .search-suggestions(ng-if='suggestions.length > 0')
     p Not sure which article to wash? Try looking at Wikipedia's most-read articles from the last hour:

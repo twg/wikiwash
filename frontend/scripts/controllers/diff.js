@@ -19,5 +19,7 @@ angular.module('wikiwash').controller('DiffController',
     };
     
     updateCurrentRevisionStats();
+
+    $('#search').focus();
   }
 );

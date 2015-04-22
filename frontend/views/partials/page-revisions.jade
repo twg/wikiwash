@@ -1,5 +1,4 @@
 .wrapper
-
   include ./header
 
   .content-wrapper
@@ -11,7 +10,6 @@
           (download history as CSV)
 
       .collection(fixed-height offset="150")
-        
         .revisions(ng-repeat='revision in revisions track by $index'
           ng-class="{ 'active-revision': currentRevId == revision.revid }"
           class="{{$index == 0 ? 'wow fadeInDown' : ''}}")

@@ -4,7 +4,9 @@ angular.module('wikiwash').controller('DocsController',
 
     $scope.getPage = function () {
       var page = pageParser.getPageName($scope.pageName);
+      
       $location.path(page);
+
       $window.location.reload();
     };
   }

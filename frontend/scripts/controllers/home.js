@@ -20,5 +20,7 @@ angular.module('wikiwash').controller('HomeController',
       socketService.socket.emit('stop cycle');
       socketService.cycling = false;
     }
+
+    $('#search').focus();
   }
 );
