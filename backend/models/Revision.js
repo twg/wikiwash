@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var _ = require('lodash');
 var Q = require('q');
 var DiffFormatter = require('../helpers/DiffFormatter');
@@ -5,6 +7,8 @@ var WikipediaHelper = require('../helpers/WikipediaHelper');
 var log = require('../config/log').createLoggerForFile(__filename);
 
 var PageProcessor = require('../helpers/PageProcessor');
+
+// == Exported Functions ====================================================
 
 function find(revisionIDs, options) {
   if (!Array.isArray(revisionIDs)) {
@@ -31,6 +35,8 @@ function find(revisionIDs, options) {
       return data;
     });
 }
+
+// == Exports ===============================================================
 
 module.exports = {
   find: find

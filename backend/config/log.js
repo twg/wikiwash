@@ -1,5 +1,9 @@
+// == Imports ===============================================================
+
 var bunyan = require('bunyan');
 var path = require('path');
+
+// == Exports ===============================================================
 
 module.exports = {
   createLoggerForFile: function(fileName) {

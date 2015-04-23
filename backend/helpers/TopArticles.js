@@ -1,8 +1,12 @@
+// == Imports ===============================================================
+
 var request = require('request');
 var zlib = require('zlib');
 var fs = require('fs');
 var moment = require('moment');
 var Q = require('q');
+
+// == Constants =============================================================
 
 var ignore = [
   'Portal:', 'File:', 'Special:', 'Wikipedia:',
@@ -12,13 +16,25 @@ var ignore = [
 var url_prefix = "http://dumps.wikimedia.org/other/pagecounts-raw/";
 var limit = 15;
 
-var compressedRequest = function(options) {
+//  See: http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_records#Article_with_longest_title
+//
+//  This will change over time, but if we exclude the longest wiki page name
+//  from showing up on the homepage, that's not a big deal.
+var longestPlausiblePageName = 217;
+
+//  After trying this many HEAD requests, the findLatestDumpFile
+//  method should return an error.
+var maxDumpFileSearchDepth = 10;
+
+// == Support Functions =====================================================
+
+function compressedRequest(options) {
   var req = request(options);
 
   return req.pipe(zlib.createGunzip());
 };
 
-var parseLine = function(line) {
+function parseLine(line) {
   var parts = line.split(' ');
 
   if (parts.length === 4) {
@@ -33,13 +49,7 @@ var parseLine = function(line) {
   }
 };
 
-//  See: http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_records#Article_with_longest_title
-//
-//  This will change over time, but if we exclude the longest wiki page name
-//  from showing up on the homepage, that's not a big deal.
-var longestPlausiblePageName = 217;
-
-var isRealPage = function(pageName) {
+function isRealPage(pageName) {
   if (pageName.length > longestPlausiblePageName) {
     return false;
   }
@@ -52,10 +62,6 @@ var isRealPage = function(pageName) {
 
   return true;
 };
-
-//  After trying this many HEAD requests, the findLatestDumpFile
-//  method should return an error.
-var maxDumpFileSearchDepth = 10;
 
 function findLatestDumpFile(time, depth) {
   if (!time) {
@@ -97,7 +103,9 @@ function findLatestDumpFile(time, depth) {
   return deferred.promise;
 }
 
-function fetchArticleStats(time) {
+// == Exported Classes ======================================================
+
+function TopArticles(time) {
   return findLatestDumpFile(time).then(function(url) {
     var options = { url: url };
     var req = compressedRequest(options);
@@ -150,13 +158,17 @@ function fetchArticleStats(time) {
   });
 }
 
-fetchArticleStats.topArticlesFilename = "topArticles.json";
+TopArticles.topArticlesFilename = "topArticles.json";
 
-module.exports = fetchArticleStats;
+// == Exports ===============================================================
+
+module.exports = TopArticles;
+
+// == Command-Line Stub =====================================================
 
 //  If running this file directly on the command line, print out the data.
 if (require.main === module) {
-  fetchArticleStats().then(function(data) {
+  TopArticles().then(function(data) {
     console.log(JSON.stringify(data, null, 2));
   });
 }

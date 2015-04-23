@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var path = require('path');
 var csv  = require('express-csv');
 
@@ -7,6 +9,8 @@ var RevisionsController = require('../controllers/RevisionsController');
 var SuggestionsController = require('../controllers/SuggestionsController');
 
 var config = require('./config');
+
+// == Support Functions ======================================================
 
 function wikipediaSite(req) {
   var first = req.host.split('.')[0];
@@ -21,9 +25,11 @@ function wikipediaSite(req) {
   }
 }
 
+// == Routes ================================================================
+
 var router = require('express')();
 
-module.exports = router;
+var revisionsController = new RevisionsController();
 
 router.get('/api/revisions/:id', function(req, res) {
   var revisionId = req.params.id;
@@ -32,14 +38,16 @@ router.get('/api/revisions/:id', function(req, res) {
     revisionId = [ revisionId, req.query.diff ];
   }
 
-  RevisionsController.show(revisionId, { site: wikipediaSite(req) })
+  revisionsController.show(revisionId, { site: wikipediaSite(req) })
     .then(function(data) { 
       res.json(data);
     });
 });
 
+var suggestionsController = new SuggestionsController();
+
 router.get('/api/suggestions', function(req, res) {
-  SuggestionsController.index({ site: wikipediaSite(req) })
+  suggestionsController.index({ site: wikipediaSite(req) })
     .then(function(data) {
       res.json(data);
     });
@@ -56,3 +64,7 @@ router.get('/', function(req, res) {
 router.all('/*', function(req, res) {
   res.redirect('/#!' + req.path);
 });
+
+// == Exports ===============================================================
+
+module.exports = router;

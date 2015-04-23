@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var Q = require('q');
 var http = require('q-io/http');
 var _ = require('lodash');
@@ -7,7 +9,12 @@ var log = require('../config/log').createLoggerForFile(__filename);
 var config = require('../config/config');
 
 var cache = require('till')(config.cache.host, config.cache.port);
+
+// == Constants =============================================================
+
 var cacheSuffix = ".html";
+
+// == Support Functions =====================================================
 
 function queryPath(revisionId) {
   return "/w/api.php?action=parse&format=json&maxlag=5&oldid=" + revisionId;
@@ -78,6 +85,26 @@ function fetchAndCacheRevisionID(revisionID, options) {
   });
 }
 
+function preemptivelyCache(revisionIDs, options) {
+  //  Simultaneously fetch all of the revisions separately.
+  //  This way, if any of the revisions are cached, we can
+  //  grab those from the cache instantly and wait on the
+  //  slower data from Wikipedia itself.
+  cache.isActive().then(function(isActive) {
+    if (isActive) {
+      var cacheQueueBeingProcessed = cacheQueue.length > 0;
+      
+      cacheQueue = cacheQueue.concat(revisionIDs).slice(0, cacheQueueLimit);
+
+      if (!cacheQueueBeingProcessed) {
+        processCacheQueue();
+      }
+    }
+  }).done();
+}
+
+// == Exported Functions ====================================================
+
 function getAndCacheRevisions(revisionIDs, options) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
@@ -130,23 +157,7 @@ function processCacheQueue() {
   }
 }
 
-function preemptivelyCache(revisionIDs, options) {
-  //  Simultaneously fetch all of the revisions separately.
-  //  This way, if any of the revisions are cached, we can
-  //  grab those from the cache instantly and wait on the
-  //  slower data from Wikipedia itself.
-  cache.isActive().then(function(isActive) {
-    if (isActive) {
-      var cacheQueueBeingProcessed = cacheQueue.length > 0;
-      
-      cacheQueue = cacheQueue.concat(revisionIDs).slice(0, cacheQueueLimit);
-
-      if (!cacheQueueBeingProcessed) {
-        processCacheQueue();
-      }
-    }
-  }).done();
-}
+// == Exports ===============================================================
 
 module.exports = {
   preemptivelyCache: preemptivelyCache,

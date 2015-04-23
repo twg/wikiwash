@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var _ = require('lodash');
 var gdiff = require('googlediff');
 
@@ -5,16 +7,7 @@ var log = require('../config/log').createLoggerForFile(__filename);
 var HTMLDiffProcessor = require('../helpers/HTMLDiffProcessor');
 var DiffSegment = require('../models/DiffSegment');
 
-function DiffFormatter(revHtml, prevHtml) {
-  //  Remove end comments
-  this.revHtml  = revHtml;
-  this.prevHtml = prevHtml;
-
-  this.contentParts = [ ];
-  this.totalAdded = 0;
-  this.totalRemoved = 0;
-  this.editCount = 0;
-}
+// == Support Functions =====================================================
 
 var getDiffParts = function(revHtml, prevHtml) {
   var diff = new gdiff();
@@ -46,18 +39,6 @@ var getDiffParts = function(revHtml, prevHtml) {
   return diffParts;
 };
 
-DiffFormatter.prototype.findEndIndexOfTagNamed = function(name, startIndex) {
-  for (closingTagIndex = startIndex; closingTagIndex < this.diffParts.length; closingTagIndex++) {
-    var tag = this.diffParts[closingTagIndex];
-
-    if (tag.tagName === name && tag.isClosingTag) {
-      return closingTagIndex;
-    }
-  }
-
-  return -1;
-};
-
 var getOldContentString = function(parts) {
   return _(parts)
     .filter(function(part) { return !part.isAddition; })
@@ -70,6 +51,31 @@ var getNewContentString = function(parts) {
     .filter(function(part) { return !part.isDeletion; })
     .map(function(part) { return part.content; })
     .toArray().join('');
+};
+
+// == Exported Classes ======================================================
+
+function DiffFormatter(revHtml, prevHtml) {
+  //  Remove end comments
+  this.revHtml  = revHtml;
+  this.prevHtml = prevHtml;
+
+  this.contentParts = [ ];
+  this.totalAdded = 0;
+  this.totalRemoved = 0;
+  this.editCount = 0;
+}
+
+DiffFormatter.prototype.findEndIndexOfTagNamed = function(name, startIndex) {
+  for (closingTagIndex = startIndex; closingTagIndex < this.diffParts.length; closingTagIndex++) {
+    var tag = this.diffParts[closingTagIndex];
+
+    if (tag.tagName === name && tag.isClosingTag) {
+      return closingTagIndex;
+    }
+  }
+
+  return -1;
 };
 
 DiffFormatter.prototype.processChangeInOpenTag = function(openTagIndex, closingTagIndex) {
@@ -236,5 +242,7 @@ DiffFormatter.prototype.generateDiff = function() {
     editCount: this.editCount,
   };
 };
+
+// == Exports ===============================================================
 
 module.exports = DiffFormatter;

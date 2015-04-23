@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var partials = require('express-partials');
@@ -13,21 +15,22 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+// ==  Constants ============================================================
+
 var frontendDir = path.join(__dirname, '..', 'frontend');
+var publicDir = path.join(__dirname, '..', 'public');
+
+// == Composition ===========================================================
 
 app.use('/frontend/assets', express.static(path.join(frontendDir, 'assets')));
 app.use('/img', express.static(path.join(frontendDir, 'assets', 'img')));
-
-var publicDir = path.join(__dirname, '..', 'public');
 
 app.use(express.static(publicDir));
 app.use('/js', express.static(path.join(publicDir, 'js')));
 app.use('/css', express.static(path.join(publicDir, 'css')));
 app.use('/views', express.static(path.join(publicDir, 'views')));
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 app.use(partials());

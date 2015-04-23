@@ -1,12 +1,18 @@
+// == Imports ===============================================================
+
 var config = require('./config');
 var PagesController = require('../controllers/PagesController');
 
 var log = require('./log').createLoggerForFile(__filename);
 
+// == Constants =============================================================
+
 var refreshInterval = 30000;
 
 // REFACTOR: The interface between PagesController and this component is
 //           somewhat wobbly, especially the refresh timer part.
+
+// == Support Functions =====================================================
 
 function emitPageData(pageName, pagesController, socket, _options) {
   if (!socket.connected || !pagesController.cycling) {
@@ -30,6 +36,8 @@ function emitPageData(pageName, pagesController, socket, _options) {
     emitPageData(pageName, pagesController, socket);
   }, refreshInterval);
 }
+
+// == Exports ===============================================================
 
 module.exports = function(io) {
   io.on('connection', function(socket) {

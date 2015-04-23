@@ -1,4 +1,8 @@
+// == Imports ===============================================================
+
 var cheerio = require('cheerio');
+
+// == Exported Functions ====================================================
 
 // FIX: Need to pass in the base URI used for this page so relative links
 //      can be resolved properly.
@@ -27,6 +31,8 @@ function process(html) {
 
   return doc.html();
 }
+
+// == Exports ===============================================================
 
 module.exports = {
   process: process

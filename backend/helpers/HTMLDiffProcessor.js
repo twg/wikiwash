@@ -1,17 +1,19 @@
-/*
- *  HTML Diff Processor
- *  ===================
- * 
- *  This class allows the conversion of HTML to plaintext, replacing each tag
- *  with a Unicode character not in public usage, to allow for the use of standard
- *  diff algorithms on the resulting HTML. Note that after using this class,
- *  any resulting HTML may still be invalid - although it is guaranteed not to contain
- *  *syntactically* invalid HTML, it may contain *semantically* invalid HTML (i.e.: improperly
- *  nested tags, missing closing or starting tags, etc.).
- */
+// HTML Diff Processor
+// ===================
+//
+// This class allows the conversion of HTML to plaintext, replacing each tag
+// with a Unicode character not in public usage, to allow for the use of standard
+// diff algorithms on the resulting HTML. Note that after using this class,
+// any resulting HTML may still be invalid - although it is guaranteed not to contain
+// *syntactically* invalid HTML, it may contain *semantically* invalid HTML
+// (i.e.: improperly nested tags, missing closing or starting tags, etc.)
+
+// == Constants =============================================================
 
 //  0xE000 is the start of the private use area in the Unicode Standard
 DefaultCharacterCode = 0xE000;
+
+// == Exported Classes ======================================================
 
 function HTMLDiffProcessor() {
   this.tagToCharacterMap = {};
@@ -60,5 +62,7 @@ HTMLDiffProcessor.prototype.htmlFromPlainText = function(plain) {
 
   return output.join('');
 };
+
+// == Exports ===============================================================
 
 module.exports = HTMLDiffProcessor;

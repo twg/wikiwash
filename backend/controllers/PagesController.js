@@ -1,8 +1,12 @@
+// == Imports ===============================================================
+
 var config = require('../config/config');
 var log = require('../config/log').createLoggerForFile(__filename);
 var _ = require('lodash');
 
 var Page = require('../models/Page');
+
+// == Exported Classes ======================================================
 
 function PagesController() {
   this.currentRevisionIds = [ ];
@@ -31,5 +35,7 @@ PagesController.prototype.show = function(pageName, _options) {
       return pageData;
     });
 };
+
+// == Exports ===============================================================
 
 module.exports = PagesController;

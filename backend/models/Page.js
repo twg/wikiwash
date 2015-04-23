@@ -1,3 +1,5 @@
+// == Imports ===============================================================
+
 var http = require('q-io/http');
 var _ = require('lodash');
 var geoip = require('geoip-lite');
@@ -6,6 +8,8 @@ var country = require('country-code-lookup');
 var config = require('../config/config');
 var WikipediaHelper = require('../helpers/WikipediaHelper');
 var log = require('../config/log').createLoggerForFile(__filename);
+
+// == Imports ===============================================================
 
 var revisionRequestLimit = 50;
 
@@ -18,6 +22,8 @@ var queryPath = function (pageName) {
          "rvlimit=" + revisionRequestLimit + "&" +
          "titles=" + encodeURIComponent(pageName)
 }
+
+// == Support Functions =====================================================
 
 // there is an api option to return revisions starting at a given id:
 // *rvstartid* but it seems to be broken.
@@ -67,6 +73,8 @@ var pageData = function(body, lastRevisionIds) {
   };
 };
 
+// == Exported Functions ====================================================
+
 function findRevisions(pageName, lastRevisionIds, _options) {
   var options = {
     method: 'GET',
@@ -87,6 +95,8 @@ function findRevisions(pageName, lastRevisionIds, _options) {
       return data;
     });
 };
+
+// == Exports ===============================================================
 
 module.exports = {
   findRevisions: findRevisions
