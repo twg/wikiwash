@@ -19,7 +19,7 @@ function wikipediaSite(req) {
     case 'en':
     case 'fr':
     case 'de':
-      return first + 'wikipedia.org';
+      return first + '.wikipedia.org';
     default:
       return config.wikipediaSite;
   }
@@ -31,11 +31,12 @@ var router = require('express')();
 
 var revisionsController = new RevisionsController();
 
-router.get('/api/revisions/:id', function(req, res) {
+router.get('/api/revisions/:id/:diff_id?', function(req, res) {
   var revisionId = req.params.id;
+  var diffId = req.params.diff_id || req.query.diff;
 
-  if (req.query.diff) {
-    revisionId = [ revisionId, req.query.diff ];
+  if (diffId) {
+    revisionId = [ revisionId, diffId ];
   }
 
   revisionsController.show(revisionId, { site: wikipediaSite(req) })

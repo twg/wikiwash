@@ -7,7 +7,9 @@ angular.module('wikiwash').factory('api', function($http) {
       return data;
     })
     .error(function (data, status, headers, config) {
-      return "ERROR: " + status;
+      console.log('Error: ' + status);
+
+      return { error: status };
     });
   }
   
@@ -18,12 +20,11 @@ angular.module('wikiwash').factory('api', function($http) {
       var url = "/api/revisions/" + revIds[0];
 
       if (revIds.length > 1 && revIds[1] !== '0') {
-        url = url + "?diff=" + revIds[1];
+        url = url + "/" + revIds[1];
       }
-      
+
       return getRequestPromise(url);
     },
-
     getSearchSuggestions: function() {
       return getRequestPromise("/api/suggestions");
     }

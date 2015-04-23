@@ -30,29 +30,34 @@ function getRevision(revisionId, _options) {
   log.info("Making a " + options.method + " request to http://" + options.host + options.path);
 
   var maxAttempts = 5;
-  var pauseTime = 5000; //ms
+  var retryDelay = 5000; //ms
   var makeRequest = function(attemptNumber) {
-    if (!attemptNumber) attemptNumber = 0;
-
-    if (attemptNumber > maxAttempts) {
+    if (!attemptNumber) {
+      attemptNumber = 0;
+    }
+    else if (attemptNumber > maxAttempts) {
       throw new Error("Maximum number of attempts exceeded for endpoint: " + options.host);
     }
 
-    return http.request(options).then(function(response) {
-      if (response.status === 503) {
-        log.warn("Received 503 from upstream. Pausing for " + pauseTime + " msec before retrying.");
+    return http.request(options)
+      .then(function(response) {
+        switch (response.status) {
+          case 503:
+            log.warn("Received 503 from upstream. Pausing for " + retryDelay + " msec before retrying.");
 
-        return Q.delay(pauseTime).then(function() {
-          makeRequest(attemptNumber + 1);
-        });
-      } else if (response.status === 200) {
-        return response.body.read();
-      } else {
-        return response.body.read().then(function(body) {
-          throw new Error("Error " + response.status + " received from upstream: " + body);
-        });
-      }
-    });
+            return Q.delay(retryDelay).then(function() {
+              makeRequest(attemptNumber + 1);
+            });
+          case 200:
+            return response.body.read();
+          default:
+            log.warn("Received " + response.status + " from upstream.");
+
+            return response.body.read().then(function(body) {
+              throw new Error("Error " + response.status + " received from upstream: " + body);
+            });
+        }
+      });
   };
 
   return makeRequest();

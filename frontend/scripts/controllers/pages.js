@@ -53,10 +53,10 @@ angular.module('wikiwash').controller('PagesController',
       }
 
       if ($routeParams.revId) {
-        // want to allow clicking relative links to other wikipedia pages
+        // Allow clicking relative links to other wikipedia pages where the
         // links look like: '/wiki/thing'
-        // edge case is the page for "wiki"
-        // revisions for that page look like '/wiki/1111-2222'
+        // Am edge case is the page for "wiki" where the revisions for that
+        // page look like '/wiki/1111-2222'
         if ($routeParams.page == 'wiki') {
           if (!parseInt($routeParams.revId.split('-')[0])) {
             socketService.socket.emit('stop cycle');
@@ -122,27 +122,17 @@ angular.module('wikiwash').controller('PagesController',
     });
 
     $scope.$watch('showRemoved', function() {
-      if ($scope.showRemoved) {
-        $('.subtractions').css('display', 'inline');
-      } else {
-        $('.subtractions').css('display', 'none');
-      }
+      $('.subtractions').css('display', $scope.showRemoved ? 'inline' : 'none');
     });
 
     $scope.$watch('showAdded', function() {
-      if ($scope.showAdded) {
-        $('.additions').css('display', 'inline');
-      } else {
-        $('.additions').css('display', 'none');
-      }
+      $('.additions').css('display', $scope.showAdded ? 'inline' : 'none');
     });
 
     $scope.getNewPage = function() {
       socketService.socket.emit('stop cycle');
 
-      var params = {
-        page: pageParser.getPageName($scope.pageName)
-      };
+      var params = pageParser.getParamsForPage($scope.pageName);
 
       $location.path($routeSegment.getSegmentUrl('p', params)).replace();
       $routeSegment.chain[0].reload();

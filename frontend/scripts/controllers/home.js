@@ -13,7 +13,9 @@ angular.module('wikiwash').controller('HomeController',
     });
 
     $scope.submit = function() {
-      $location.path(pageParser.getPageName($scope.pageName));
+      var params = pageParser.getParamsForPage($scope.pageName);
+
+      $location.path(params.page);
     };
     
     if (socketService.cycling) {

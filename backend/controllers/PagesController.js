@@ -20,7 +20,7 @@ PagesController.prototype.show = function(pageName, _options) {
     site: _options ? _options.site : config.wikipediaSite
   }
 
-  return Page.findRevisions(pageName, this.currentRevisionIds, options)
+  return Page.findRevisions(pageName, _this.currentRevisionIds, options)
     .then(function(pageData) {
       if (!pageData.revisions.length) {
         return { };

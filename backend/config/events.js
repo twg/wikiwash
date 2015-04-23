@@ -14,16 +14,16 @@ var refreshInterval = 30000;
 
 // == Support Functions =====================================================
 
-function emitPageData(pageName, pagesController, socket, _options) {
-  if (!socket.connected || !pagesController.cycling) {
+function updatePage(pageName, pagesController, socket, _options) {
+  if (!socket.connected || !pagesController.timer) {
     return;
   }
 
   var options = {
     site: _options && _options.site || config.wikipediaSite
-  }
+  };
 
-  log.info('Page cycle request: ' + pageName);
+  log.info('Page cycle request: ' + pageName + ' ' + JSON.stringify(_options));
 
   pagesController.show(pageName, options)
     .then(function(pageData) {
@@ -31,10 +31,13 @@ function emitPageData(pageName, pagesController, socket, _options) {
 
       socket.emit('new revisions', pageData);
     })
+}
 
-  pagesController.timer = setTimeout(function() {
-    emitPageData(pageName, pagesController, socket);
-  }, refreshInterval);
+function clearPageUpdate(pagesController) {
+  if (pagesController.timer) {
+    clearTimeout(pagesController.timer);
+    pagesController.timer = null;
+  }
 }
 
 // == Exports ===============================================================
@@ -46,24 +49,24 @@ module.exports = function(io) {
     var pagesController = new PagesController();
 
     socket.on('cycle page data', function(params) {
-      if (pagesController.timer) {
-        clearTimeout(pagesController.timer);
-        pagesController.timer = null;
-      }
+      clearPageUpdate(pagesController);
 
-      emitPageData(params.page, pagesController, socket, params);
+      var updateFn = function() {
+        updatePage(params.page, pagesController, socket, params);
+      }
+      
+      pagesController.timer = setTimeout(updateFn, refreshInterval);
+      updateFn();
       
       socket.on('stop cycle', function() {
-        if (pagesController.timer) {
-          clearTimeout(pagesController.timer);
-        }
-
-        pagesController.timer = null;
+        clearPageUpdate(pagesController);
       });
     });
     
     socket.on('disconnect', function() {
       log.info("user disconnected");
+
+      clearPageUpdate(pagesController);
     });
   });
 };
