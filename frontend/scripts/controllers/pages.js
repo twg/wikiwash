@@ -1,16 +1,5 @@
 angular.module('wikiwash').controller('PagesController',
-  function(
-    $scope,
-    $location,
-    $routeParams,
-    $routeSegment,
-    $http,
-    $anchorScroll,
-    locationParams,
-    socketService,
-    _,
-    pageParser) {
-
+  function($scope, $location, $routeParams, $routeSegment, $http, $anchorScroll, locationParams, socketService, _, pageParser) {
     var updateStats = function() {
       var users = _.keys(_.groupBy($scope.revisions, function(revision) {
         return revision.user;
@@ -115,11 +104,12 @@ angular.module('wikiwash').controller('PagesController',
         return;
       }
 
-      // redirect to first revision
-      if (!$routeParams.revId) {
+      // Redirect to first revision
+      if (!$routeParams.revId && res.revisions && res.revisions[0]) {
         $scope.revisions = res.revisions;
 
         var revId = $scope.revisions[0].revid + "-" + $scope.revisions[0].parentid;
+
         var params = {
           page: $routeParams.page,
           revId: revId
