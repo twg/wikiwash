@@ -34,7 +34,7 @@ function updatePage(pageName, pagesController, socket, _options) {
 }
 
 function clearPageUpdate(pagesController) {
-  if (pagesController.timer) {
+  if (pagesController && pagesController.timer) {
     clearTimeout(pagesController.timer);
     pagesController.timer = null;
   }
@@ -46,27 +46,27 @@ module.exports = function(io) {
   io.on('connection', function(socket) {
     log.info('Connection from ' + socket.conn.remoteAddress);
     
-    var pagesController = new PagesController();
-
     socket.on('cycle page data', function(params) {
-      clearPageUpdate(pagesController);
+      clearPageUpdate(socket.pagesController);
+
+      socket.pagesController = new PagesController();
 
       var updateFn = function() {
-        updatePage(params.page, pagesController, socket, params);
+        updatePage(params.page, socket.pagesController, socket, params);
       }
       
-      pagesController.timer = setTimeout(updateFn, refreshInterval);
+      socket.pagesController.timer = setTimeout(updateFn, refreshInterval);
       updateFn();
       
       socket.on('stop cycle', function() {
-        clearPageUpdate(pagesController);
+        clearPageUpdate(socket.pagesController);
       });
     });
     
     socket.on('disconnect', function() {
       log.info("user disconnected");
 
-      clearPageUpdate(pagesController);
+      clearPageUpdate(socket.pagesController);
     });
   });
 };
