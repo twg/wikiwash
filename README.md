@@ -26,7 +26,7 @@ $ bower install
 
 # Launch the dev server
 $ npm start
-$ open http://localhost:3000/
+$ open http://http://en.wikiwash.127.0.0.1.xip.io:3000/
 ```
 
 WikiWash requires [NodeJS](http://nodejs.org/) which can be installed either
@@ -96,6 +96,12 @@ to display the most-read Wikipedia articles from the last hour. Note that
 these cronjobs call scripts in the `scripts` folder, and do download large
 amounts of data from Wikimedia's dump server.
 
+## Localization
+
+WikiWash uses the [i18next](http://i18next.com/) library. Translations are
+stored in `frontend/locales` as small, simple JSON documents. The `en.json`
+file serves as a template for others.
+
 ## Libraries
 
 #### HTTP server
@@ -117,9 +123,9 @@ amounts of data from Wikimedia's dump server.
 
 #### Package Management, Asset Build System
 
-* [npm](https://npmjs.org) - Node Packaged Modules
-* [Bower](http://bower.io) - The package manager for the web
-* [Gulp](http://gulpjs.com) - The streaming build system
+* [npm](https://npmjs.org/) - Node Packaged Modules
+* [Bower](http://bower.io/) - The package manager for the web
+* [Gulp](http://gulpjs.com/) - The streaming build system
 
 #### Deployment
 * [PM2](https://github.com/Unitech/pm2) - Process manager

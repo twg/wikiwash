@@ -38,7 +38,8 @@ var bowerJsDependencies = [
   './bower_components/angular-underscore/angular-underscore.js',
   './bower_components/angular-smooth-scroll/build/ng-smoothscroll.js',
   './bower_components/angular-underscore-module/angular-underscore-module.js',
-  './bower_components/ng-csv/build/ng-csv.min.js'
+  './bower_components/ng-csv/build/ng-csv.min.js',
+  './bower_components/i18next/i18next.js'
 ];
 
 var bowerCssDependencies = [

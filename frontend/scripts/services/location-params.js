@@ -9,6 +9,9 @@ angular.module('wikiwash').factory('locationParams',
           case 'en':
           case 'fr':
           case 'de':
+          case 'ru':
+          case 'es':
+          case 'pt':
             return language + '.wikipedia.org';
           default:
             return 'en.wikipedia.org';

@@ -1,0 +1,31 @@
+{
+  "noun": {
+    "revs.edits": {
+      "zero": "No edits",
+      "one": "1 edit",
+      "other": "# edits"
+    },
+    "revs.people": {
+      "zero": "nobody",
+      "one": "1 person",
+      "other": "# people"
+    }
+  },
+  "verb": {
+    "wash": "Wash",
+    "removed": "Removed",
+    "added": "Added"
+  },
+  "phrase": {
+    "about": "About",
+    "home.headline": "Track Wikipedia edits in real time.",
+    "home.tagline": "Follow breaking stories as they are written.",
+    "home.howto": "How to use WikiWash",
+    "home.whatis": "What is WikiWash?",
+    "home.sponsors": "WikiWash is brought to you by:",
+    "revs.realtime-edits": "Real-time Edits",
+    "revs.download-csv": "Download history as CSV",
+    "revs.avg-time-between": "Avg. time between edits",
+    "revs.avg-edits-user": "Avg. edits/user"
+  }
+}
