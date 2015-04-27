@@ -29,7 +29,7 @@ function updatePage(pageName, pagesController, socket, _options) {
     .then(function(pageData) {
       log.info('Page cycle finished: ' + pageName);
 
-      socket.emit('new revisions', pageData);
+      socket.emit('revisions:push', pageData);
     })
 }
 
@@ -46,7 +46,7 @@ module.exports = function(io) {
   io.on('connection', function(socket) {
     log.info('Connection from ' + socket.conn.remoteAddress);
     
-    socket.on('cycle page data', function(params) {
+    socket.on('revisions:subscribe', function(params) {
       clearPageUpdate(socket.pagesController);
 
       socket.pagesController = new PagesController();
@@ -58,7 +58,7 @@ module.exports = function(io) {
       socket.pagesController.timer = setTimeout(updateFn, refreshInterval);
       updateFn();
       
-      socket.on('stop cycle', function() {
+      socket.on('revisions:unsubscribe', function() {
         clearPageUpdate(socket.pagesController);
       });
     });

@@ -19,7 +19,7 @@ angular.module('wikiwash').controller('PagesController',
 
     $scope.revisions = [ ];
     $scope.loading = true;
-    $scope.revisionBody = "";
+    $scope.revisionBody = '';
     $scope.showAdded = true;
     $scope.showRemoved = true;
 
@@ -30,8 +30,9 @@ angular.module('wikiwash').controller('PagesController',
     $scope.nextEdit = 0;
     $scope.tab = 'history';
 
-    socketService.socket.emit('cycle page data', {
-      page: locationParams.getPage()
+    socketService.socket.emit('revisions:subscribe', {
+      page: locationParams.getPage(),
+      site: locationParams.getWikipediaSite()
     });
     
     socketService.cycling = true;
@@ -43,7 +44,7 @@ angular.module('wikiwash').controller('PagesController',
       $scope.csv_filename = $scope.pageName.replace(/ /g, '_').replace(/[^\w]/g, '') + '.csv';
 
       if ($scope.loading) {
-        $scope.revisionBody = "";
+        $scope.revisionBody = '';
       }
     });
 
@@ -59,7 +60,7 @@ angular.module('wikiwash').controller('PagesController',
         // page look like '/wiki/1111-2222'
         if ($routeParams.page == 'wiki') {
           if (!parseInt($routeParams.revId.split('-')[0])) {
-            socketService.socket.emit('stop cycle');
+            socketService.socket.emit('revisions:unsubscribe');
 
             $routeParams.page = $routeParams.revId;
             $location.path($routeParams.revId).replace();
@@ -93,7 +94,7 @@ angular.module('wikiwash').controller('PagesController',
       }
     });
 
-    socketService.socket.on("new revisions", function(res) {
+    socketService.socket.on('revisions:push', function(res) {
       var revs = res.revisions || [ ];
 
       $scope.revisions = revs.concat($scope.revisions);
@@ -108,7 +109,7 @@ angular.module('wikiwash').controller('PagesController',
       if (!$routeParams.revId && res.revisions && res.revisions[0]) {
         $scope.revisions = res.revisions;
 
-        var revId = $scope.revisions[0].revid + "-" + $scope.revisions[0].parentid;
+        var revId = $scope.revisions[0].revid + '-' + $scope.revisions[0].parentid;
 
         var params = {
           page: $routeParams.page,
@@ -130,7 +131,7 @@ angular.module('wikiwash').controller('PagesController',
     });
 
     $scope.getNewPage = function() {
-      socketService.socket.emit('stop cycle');
+      socketService.socket.emit('revisions:unsubscribe');
 
       var params = pageParser.getParamsForPage($scope.pageName);
 
