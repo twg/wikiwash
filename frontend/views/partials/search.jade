@@ -11,8 +11,8 @@
         a(href="" ng-click="$root.showModal = !$root.showModal" ng-i18next="phrase.home-whatis")
   .search-splash
     form(ng-submit="search()")
-      input.button(type='submit' value="{{'verb.wash'|i18next}}" ng-click='submit()')
-      input.bar(type="search" placeholder="{{'phrase.home-search'|i18next}}" ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()" id="search")
+      input.button.wash(type='submit' ng-i18next='[value]verb.wash' ng-click='submit()')
+      input.bar(type="search" ng-i18next='[placeholder]phrase.home-search' ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()" id="search")
 
   .search-suggestions(ng-if='suggestions.length > 0')
     p(ng-i18next='phrase.home-whattowash')
@@ -21,7 +21,6 @@
         a(href='/{{suggestion.url}}') {{ suggestion.title }}
   .footer-splash
     social-buttons
-
     p(ng-i18next='phrase.home-sponsors')
     a(href="http://metronews.ca/" target="_blank")
       img.metro-logo(src="/img/logo-metro.png")

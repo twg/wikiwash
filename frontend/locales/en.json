@@ -1,15 +1,11 @@
 {
   "noun": {
-    "revs-edits": {
-      "zero": "No edits",
-      "one": "1 edit",
-      "other": "# edits"
-    },
-    "revs-people": {
-      "zero": "nobody",
-      "one": "1 person",
-      "other": "# people"
-    }
+    "revs-edits": "1 edit",
+    "revs-edits_plural_0": "No edits",
+    "revs-edits_plural": "__count__ edits",
+    "revs-people": "1 person",
+    "revs-people_plural_0": "nobody",
+    "revs-people_plural": "__count__ people"
   },
   "verb": {
     "wash": "Wash",
@@ -18,6 +14,7 @@
   },
   "phrase": {
     "about": "About",
+    "revs-edits-by-people": "$t(noun.revs-edits,{\"count\":__edits__}) by $t(noun.revs-people,{\"count\":__people__}) since",
     "revs-history": "History",
     "revs-article": "Article",
     "home-headline": "Track Wikipedia edits in real time.",

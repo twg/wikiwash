@@ -36,13 +36,16 @@
               title="{{'phrase.revs.view'|i18next}}"
             )
               p.comment(ng-if="revision.comment.length > 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })") {{revision.comment}}
-              p.comment(ng-if="revision.comment.length <= 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })" ng-i18next='phrase.Comment was not entered.')
+              p.comment(ng-if="revision.comment.length <= 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })" ng-i18next='phrase.revs-nocomment')
           .data
             p.added {{revision.added ? "+" + revision.added : ''}}
             p.removed {{revision.removed ? "-" + revision.removed : ''}}
       .footer
         .top-stats
-          p {{revisions.length}} edits by {{totalUsers}} people since {{ firstEditDate | date: 'mediumDate'}}
+          p
+            span(ng-i18next='[i18next]({edits:revisions.length,people:totalUsers})phrase.revs-edits-by-people')
+            | 
+            {{ firstEditDate | date: 'mediumDate'}}
         .bottom-stats
           .edits-per-user
             p(ng-i18next='phrase.revs-avg-edits-user')
