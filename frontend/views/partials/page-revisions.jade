@@ -3,11 +3,9 @@
 
   .content-wrapper
     .content-left(ng-class="{active: tab=='history'}")
-
       .export-history
-        span Real-time Edits
-        a(href="", ng-csv="sessionCsv()", filename="{{csv_filename}}").
-          (download history as CSV)
+        span(ng-i18next='phrase.revs-realtime-edits')
+        a(href="", ng-csv="sessionCsv()", filename="{{csv_filename}}" ng-i18next='phrase.revs-download-csv')
 
       .collection(fixed-height offset="150")
         .revisions(ng-repeat='revision in revisions track by $index'
@@ -15,7 +13,7 @@
           class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
           a.revision-link(
             ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })"
-            title="View revision"
+            title="{{'phrase.revs.view'|i18next}}"
           )
           .timestamp
             p {{revision.timestamp | date:'shortTime'}}
@@ -24,21 +22,21 @@
             a(
               href="https://en.wikipedia.org/wiki/Special:Contributions/{{revision.user}}"
               target="_blank"
-              title="View previous contributions"
+              title="{{'phrase.revs-viewprevious'|i18next}}"
             )
               p.username {{revision.user}}
             span(ng-if="revision.geo")
               a.geo(
                 target="_blank"
                 href="https://www.google.com/maps/search/{{revision.geo}}/"
-                title="View in Google Maps"
+                title="{{'phrase.revs-view-googlemaps'||i18next}}"
               ) {{revision.geo}}
             a(
               href="{{ 'p.revision' | routeSegmentUrl: { page: pageName, revId: revision.revid + '-' + revision.parentid } }}"
-              title="View revision"
+              title="{{'phrase.revs.view'|i18next}}"
             )
               p.comment(ng-if="revision.comment.length > 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })") {{revision.comment}}
-              p.comment(ng-if="revision.comment.length <= 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })") Comment was not entered.
+              p.comment(ng-if="revision.comment.length <= 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })" ng-i18next='phrase.Comment was not entered.')
           .data
             p.added {{revision.added ? "+" + revision.added : ''}}
             p.removed {{revision.removed ? "-" + revision.removed : ''}}
@@ -47,14 +45,14 @@
           p {{revisions.length}} edits by {{totalUsers}} people since {{ firstEditDate | date: 'mediumDate'}}
         .bottom-stats
           .edits-per-user
-            p Avg edits/user
+            p(ng-i18next='phrase.revs-avg-edits-user')
             p.number {{editsPerUser}}
           .time-between-edits
-            p Avg time between edits
+            p(ng-i18next='phrase.revs-avg-time-between')
             p.number {{timeBetweenEdits}} Hours
 
     .content-right(ng-show="noResults", ng-class="{active: tab=='article'}")
-      .wikidiff.mw-headline Looks like there is no Wikipedia page for this query. Try finding the page on Wikipedia and pasting the URL into the search bar. 
+      .wikidiff.mw-headline(ng-i18next='phrase.revs-notfound')
 
     .content-right(app-view-segment="1", ww-scroll, fixed-height, offset="75", ng-class="{active: tab=='article'}")
       .ww-loading(ng-show="loading")

@@ -39,7 +39,8 @@ var bowerJsDependencies = [
   './bower_components/angular-smooth-scroll/build/ng-smoothscroll.js',
   './bower_components/angular-underscore-module/angular-underscore-module.js',
   './bower_components/ng-csv/build/ng-csv.min.js',
-  './bower_components/i18next/i18next.js'
+  './bower_components/i18next/i18next.js',
+  './bower_components/ng-i18next/dist/ng-i18next.min.js'
 ];
 
 var bowerCssDependencies = [
@@ -57,7 +58,8 @@ var paths = {
   scripts: [ 'frontend/scripts/**/*.js' ],
   styles: [ 'frontend/styles/**/*.sass' ],
   views: [ 'frontend/views/**/*' ],
-  public: [ 'frontend/public/**/*' ]
+  public: [ 'frontend/public/**/*' ],
+  i18n: [ 'frontend/locales/*.json' ]
 };
 
 gulp.task('html-public', function() {
@@ -156,11 +158,17 @@ gulp.task('watch', function() {
   gulp.watch(paths.public, [ 'html-public' ]);
   gulp.watch(paths.scripts, [ 'scripts' ]);
   gulp.watch(paths.styles, [ 'styles' ]);
+  gulp.watch(paths.i18n, [ 'i18n' ]);
 })
 
 gulp.task('backend', function() {
   gulp.src('./backend/**/*.js')
     .pipe(jshint());
+});
+
+gulp.task('i18n', function() {
+  gulp.src('./frontend/locales/*.json')
+    .pipe(gulp.dest('./public/locales'));
 });
 
 gulp.task('nodemon', function() {
@@ -190,7 +198,8 @@ gulp.task('build', [
   'vendor-scripts',
   'vendor-styles',
   'fonts',
-  'vendor-images'
+  'vendor-images',
+  'i18n'
 ]);
 
 gulp.task('default', [ 'nodemon', 'build', 'watch' ]);

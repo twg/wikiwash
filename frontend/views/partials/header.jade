@@ -2,12 +2,12 @@
 .header-wrapper
   .header(ng-class="{'is-searching': searchingState}")
     .header-logo
-      a(href="/")
+      a(href="/" title='WikiWash')
         img(src="/img/WIKIWASH-Logo-Header%402x.png")
 
     .header-navigation
       .header-inner
-        a.header-about(href="",ng-click="$root.showModal=!$root.showModal",ng-class="{active: $root.showModal}") About
+        a.header-about(href="",ng-click="$root.showModal=!$root.showModal",ng-class="{active: $root.showModal}" ng-i18next='phrase.about')
         .header-searchToggle.fa.fa-search(ng-click="searchingState = !searchingState")
 
     .header-search
@@ -16,16 +16,14 @@
           input(type="text" id="search" name="search" ng-model="pageName")
         .header-checkbox.checkbox--removed
           input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
-          label(for="removed") Removed
+          label(for="removed" ng-i18next='verb.removed')
         .header-checkbox.checkbox--added
           input(type="checkbox" name="added" id="added" ng-model="showAdded")
-          label(for="added") Added
+          label(for="added" ng-i18next='verb.added')
 
   .content_tabs
     ul.tabs
       li
-        a(href='#', ng-click="showHistory()",ng-class="{active: tab=='history'}").
-          History
+        a(href='#', ng-click="showHistory()",ng-class="{active: tab=='history'}" ng-i18next='phrase.revs-history')
       li.last
-        a(href='#', ng-click="showArticle()",ng-class="{active: tab=='article'}").
-          Article
+        a(href='#', ng-click="showArticle()",ng-class="{active: tab=='article'}" ng-i18next='phrase.revs-article')

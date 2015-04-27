@@ -1,11 +1,11 @@
 {
   "noun": {
-    "revs.edits": {
+    "revs-edits": {
       "zero": "No edits",
       "one": "1 edit",
       "other": "# edits"
     },
-    "revs.people": {
+    "revs-people": {
       "zero": "nobody",
       "one": "1 person",
       "other": "# people"
@@ -18,14 +18,23 @@
   },
   "phrase": {
     "about": "About",
-    "home.headline": "Track Wikipedia edits in real time.",
-    "home.tagline": "Follow breaking stories as they are written.",
-    "home.howto": "How to use WikiWash",
-    "home.whatis": "What is WikiWash?",
-    "home.sponsors": "WikiWash is brought to you by:",
-    "revs.realtime-edits": "Real-time Edits",
-    "revs.download-csv": "Download history as CSV",
-    "revs.avg-time-between": "Avg. time between edits",
-    "revs.avg-edits-user": "Avg. edits/user"
+    "revs-history": "History",
+    "revs-article": "Article",
+    "home-headline": "Track Wikipedia edits in real time.",
+    "home-tagline": "Follow breaking stories as they are written.",
+    "home-howto": "How to use WikiWash",
+    "home-whatis": "What is WikiWash?",
+    "home-sponsors": "WikiWash is brought to you by:",
+    "home-search": "Paste a Wikipedia URL to wash",
+    "home-whattowash": "Not sure which article to wash? Try looking at Wikipedia's most-read articles from the last hour:",
+    "revs-realtime-edits": "Real-time Edits",
+    "revs-download-csv": "Download history as CSV",
+    "revs-avg-time-between": "Avg. time between edits",
+    "revs-avg-edits-user": "Avg. edits/user",
+    "revs-notfound": "Looks like there is no Wikipedia page for this query. Try finding the page on Wikipedia and pasting the URL into the search bar.",
+    "revs-nocomment": "Comment was not entered.",
+    "revs-view": "View revision",
+    "revs-viewprevious": "View previous contributions",
+    "revs-viewgooglemaps": "View in Google Maps"
   }
 }

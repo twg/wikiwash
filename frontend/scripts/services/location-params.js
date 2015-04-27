@@ -2,20 +2,7 @@ angular.module('wikiwash').factory('locationParams',
   function($location) {
     return {
       getWikipediaSite: function() {
-        var language = location.hostname.split('.')[0];
-
-        switch (language)
-        {
-          case 'en':
-          case 'fr':
-          case 'de':
-          case 'ru':
-          case 'es':
-          case 'pt':
-            return language + '.wikipedia.org';
-          default:
-            return 'en.wikipedia.org';
-        }
+        return window.locale.current() + '.wikipedia.org';
       },
       getCurrentRevId: function() {
         if ($location.path().split("/").length > 2) {
