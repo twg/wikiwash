@@ -23,7 +23,7 @@ angular.module('wikiwash', [
   'btford.socket-io',
   'ngSanitize',
   'ngRoute',
-  'route-segment', 
+  'route-segment',
   'view-segment',
   'ngAnimate',
   'underscore',
