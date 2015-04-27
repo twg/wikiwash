@@ -3,7 +3,7 @@
     .logo-splash
       img(src="/img/WIKIWASH-Logo-HomeScreen%402x.png")
     .modo
-      p Track Wikipedia edits in real time. 
+      p Track Wikipedia edits in real time.
       p Follow breaking stories as they are written.
       .about
         a(href="/docs" target="_self") HOW TO USE WIKIWASH
@@ -31,6 +31,16 @@
       img.metro-logo(src="/img/logo-cir.png")
     a(href="http://google.com/" target="_blank")
       img.metro-logo(src="/img/logo-google.png")
+
+  h1(ng-init='hello="hello"') i18n Test
+  p Filter literal test: {{'hello' | i18next}}
+  p Filter scope variable test: {{ hello | i18next}}
+  p
+    span Directive test:
+    span(ng-i18next='hello')
+
+  p Nested attributes: {{ 'noun.pizza' | i18next }}
+
 
 .overlay(ng-show="$root.showModal" ng-click="$root.showModal = !$root.showModal")
 include ./about-modal

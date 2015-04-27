@@ -38,7 +38,9 @@ var bowerJsDependencies = [
   './bower_components/angular-underscore/angular-underscore.js',
   './bower_components/angular-smooth-scroll/build/ng-smoothscroll.js',
   './bower_components/angular-underscore-module/angular-underscore-module.js',
-  './bower_components/ng-csv/build/ng-csv.min.js'
+  './bower_components/ng-csv/build/ng-csv.min.js',
+  './bower_components/i18next/i18next.min.js',
+  './bower_components/ng-i18next/dist/ng-i18next.min.js'
 ];
 
 var bowerCssDependencies = [
@@ -56,6 +58,7 @@ var paths = {
   scripts: [ 'frontend/scripts/**/*.js' ],
   styles: [ 'frontend/styles/**/*.sass' ],
   views: [ 'frontend/views/**/*' ],
+  locales: [ 'frontend/locales/**/*.json'],
   public: [ 'frontend/public/**/*' ]
 };
 
@@ -121,6 +124,11 @@ gulp.task('styles', function() {
     .pipe(gulp.dest('./public/css'))
 })
 
+gulp.task('locales', function() {
+  return gulp.src(paths.locales)
+    .pipe(gulp.dest('./public/locales'))
+})
+
 // -- Merge and Minify CSS Dependencies -------------------------------------
 
 gulp.task('vendor-styles', function() {
@@ -155,6 +163,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.public, [ 'html-public' ]);
   gulp.watch(paths.scripts, [ 'scripts' ]);
   gulp.watch(paths.styles, [ 'styles' ]);
+  gulp.watch(paths.locales, [ 'locales' ]);
 })
 
 gulp.task('backend', function() {
@@ -186,6 +195,7 @@ gulp.task('build', [
   'scripts',
   'styles',
   'icons',
+  'locales',
   'vendor-scripts',
   'vendor-styles',
   'fonts',
