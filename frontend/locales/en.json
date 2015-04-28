@@ -5,7 +5,9 @@
     "revs-edits_plural": "__count__ edits",
     "revs-people": "1 person",
     "revs-people_plural_0": "nobody",
-    "revs-people_plural": "__count__ people"
+    "revs-people_plural": "__count__ people",
+    "revs-hours" : "1 hour",
+    "revs-hours_plural": "__count__ hours"
   },
   "verb": {
     "wash": "Wash",

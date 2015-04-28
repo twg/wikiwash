@@ -13,6 +13,8 @@
     form(ng-submit="search()")
       input.button.wash(type='submit' ng-i18next='[value]verb.wash' ng-click='submit()')
       input.bar(type="search" ng-i18next='[placeholder]phrase.home-search' ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()" id="search")
+    .languages
+      a(ng-repeat="(lang, href) in getSiteVariants()" href='{{href}}') {{lang}}
 
   .search-suggestions(ng-if='suggestions.length > 0')
     p(ng-i18next='phrase.home-whattowash')
@@ -32,4 +34,4 @@
       img.metro-logo(src="/img/logo-google.png")
 
 .overlay(ng-show="$root.showModal" ng-click="$root.showModal = !$root.showModal")
-include ./about-modal
+  include about-modal

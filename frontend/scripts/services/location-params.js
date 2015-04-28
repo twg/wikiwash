@@ -1,6 +1,16 @@
 angular.module('wikiwash').factory('locationParams',
   function($location) {
     return {
+      getSiteVariants: function() {
+        var sites = [ 'en', 'fr', 'de' ];
+        var results = { };
+
+        sites.forEach(function(lang) {
+          results[lang] = 'http://' + window.location.host.replace(/^\w+\./, lang + '.') + '/';
+        });
+
+        return results;
+      },
       getWikipediaSite: function() {
         return window.locale.current() + '.wikipedia.org';
       },

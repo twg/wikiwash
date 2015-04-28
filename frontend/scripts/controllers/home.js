@@ -1,5 +1,8 @@
 angular.module('wikiwash').controller('HomeController',
-  function($scope, $location, socketService, pageParser, suggestions) {
+  function($scope, $location, socketService, pageParser, locationParams, suggestions) {
+    $scope.locale = window.locale;
+    $scope.getSiteVariants = locationParams.getSiteVariants;
+
     $scope.pageName = '';
     $scope.revisions = [ ];
 

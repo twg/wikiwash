@@ -17,6 +17,8 @@ angular.module('wikiwash').controller('PagesController',
       $scope.firstEditDate = _.last($scope.revisions).timestamp;
     };
 
+    $scope.locale = window.locale;
+    $scope.getSiteVariants = locationParams.getSiteVariants;
     $scope.revisions = [ ];
     $scope.loading = true;
     $scope.revisionBody = '';

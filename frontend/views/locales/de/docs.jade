@@ -1,0 +1,123 @@
+.faq-content
+  h1 WikiWash 101 DE
+
+  p The Beta version of WikiWash is a proof-of-concept prototype that allows journalists, citizens and activists to uncover spin and bias on Wikipedia by tracking page edits in real time. The platform aims to make political and corporate spin on Wikipedia more visible, and to promote transparency through crowdsourcing.
+
+  p WikiWash was created by a team of journalists from Metro News Canada in partnership with <a target="_blank" href="http://twg.ca">The Working Group</a>. The idea was born at TechRaking Toronto, the conference for data in the newsroom hosted by the Centre for Investigative Reporting, Google Canada and The Canadian Press.
+
+  h2 Using WikiWash:
+
+  p To get started, open <a target="_blank" href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a> in a new tab, and find a page that you would like to ‘Wash’.
+
+  p Copy the URL from the Wikipedia page, and then paste it into the WikiWash search bar, and hit the ‘Wash’ button.
+
+  p WikiWash will then retrieve the last 50 edits made to that Wikipedia page, and show them overlaid on the page content itself. Removed text will be highlighted in red, and added text will be highlighted in green. 
+  
+  .indented 
+    img(src="/img/faq/ww-edit-added-and-removed.jpg")
+    
+  p By default, both Removed and Added characters are shown. This illustrates the scope of the edit, but can be challenging to read to begin with. Up in the header, you’ll see two check-boxes: Removed and Added. Try toggling them on and off to get an idea of what was removed, and what was added.
+  
+  .indented 
+    img(src="/img/faq/ww-edit-removed.jpg")
+
+  p Removed
+
+  .indented 
+    img(src="/img/faq/ww-edit-added.jpg")
+
+  p Added
+
+  h2 A few notes on formatting: 
+
+  p Any characters which are common between the deleted text and the added text will show as though there were un-edited. This can be a little confusing at first, until you understand how WikiWash can only show the difference between two pages. 
+
+  p If the characters exists in the same order in both versions of the page, it can’t tell that any edit was made. As an illustration, note the characters ‘m’, ‘a’, and ‘i’ below that are shared between both the deleted text and the added text.
+  
+  .indented
+    img(src="/img/faq/formatting-added-removed.jpg")
+  .indented
+    img(src="/img/faq/formatting-removed.jpg")
+  .indented
+    img(src="/img/faq/formatting-added.jpg")
+  
+  .spacer
+
+  p If any edits were made to a link, a reference, or a file - WikiWash will show you the associated HTML code (as above).
+
+  h2 Watch Edits Happen in Real-time!
+
+  p Keep the WikiWash page open, and any new edits made to the associated Wikipedia page will appear in real time, as they’re made.
+
+  p In the list of Edits on the left, click the edit summary to show that edit on the page itself. The page will then scroll down to show you the first edit made on that page.
+
+  p When you view an edit, red and green numbers will appear beside the edit summary. The red numbers tell you the number of characters removed in that edit, and the green numbers tell you the number of characters added. 
+  
+  .indented
+    img(src="/img/faq/num-additions-subtractions.png")
+
+  .indented
+    .italic Note: A single ‘Edit’, as defined by Wikipedia, can actually be a collections of additions and/or deletions by a single user, all clumped together. If the number of characters added/removed seems much larger than the first edit visible on the screen, try scrolling up and down to find other edits  
+
+  p After you’ve been collecting these edits for a while, you can export them all as a .CSV file to analyze them further. 
+  
+  .indented
+    img(src="/img/faq/user-name.png")
+
+  p In the list of Edits on the left, you can also click on the user’s name to visit their Wikipedia revision history page, to see what other edits they’ve been making. We’re hoping to bring this accountability listing directly into WikiWash in the near future, to make it easier to track a user’s edits across multiple pages.
+
+  p We’re excited to put WikiWash in your hands, and see what emerges!
+
+
+  h2 FAQ
+
+  p.faq-title Who owns WikiWash?
+  .indented We all do. <a target="_blank" href="https://github.com/twg/wikiwash">WikiWash is open source</a>, so that you can add to it or extend it and turn it into exactly the tool you need. 
+
+  p.faq-title Can I use WikiWash on my phone?
+  .indented You can, but it won’t be easy. Being a prototype, WikiWash Beta is optimized for use on a desktop in a modern browser. 
+
+  p.faq-title Er, something looks broken ..
+  .indented It likely is. Please <a target="_blank" href="mailto:wikiwash@twg.ca">drop us a line</a> or add a <a target="_blank" href="https://github.com/twg/wikiwash">Github issue</a>, and we’ll try and get it fixed asap!
+
+  p.faq-title I have a great idea for a way to extend this app ..
+  .indented If you're a developer, feel free to <a target="_blank" href="https://github.com/twg/wikiwash">fork the project on GitHub</a> and send us a pull request with new functionality. If you're not technically inclined, we’d  still love to hear your ideas - <a target="_blank" href="mailto:wikiwash@twg.ca"> drop us a line</a>.
+
+  p.faq-title I discovered an amazing/terrifying/annoying/hidden bias - who should I tell?
+  .indented Us! We love to hear how WikiWash Beta is being used. Please <a target="_blank" href="mailto:wikiwash@twg.ca"> drop us a line</a>.
+
+  p.faq-title What’s with all the bots?
+  .indented
+    .image 
+      img(src="/img/faq/bots.jpg")
+    .spacer
+    p In the list of edits, you’ll see lots of bots. Sometimes these are fixing errors, sometimes they’re optimizing the page, and sometimes they can be malicious. Keep an eye on the Robots ...
+
+  p.faq-title What does ‘Diff Unavailable’ mean?
+  .indented If the difference between pages is HUGE, or if the previous version of a page was completely deleted and a whole new one added, then there won’t be any way to take the difference between the pages. This can happen on contentious breaking news when a large volume of malicious edits occur on a page, and the admins decide to roll back the page to an old version.
+
+  p.faq-title My search results take a looooong time.. what gives?
+  .indented WikiWash Beta is optimized for clarity instead of speed. It relies on the WikiMedia API and the WikiMedia servers to return rendered versions of the edited pages. On big pages, this response can take a while. If there are multiple simultaneous users, we all have to queue up to wait for the WikiMedia API to handle our requests. If only we could gain direct access to the Wiki database ...
+
+  p.faq-title How can I see the full revision history?
+  .indented Unfortunately, the WikiMedia API only allows us to return a finite number of results for each request. If only we could gain direct access to the Wiki database ...
+
+  p.faq-title How can I see other edits that a user has made?
+  .indented Click the user’s name to see a list of all of their other edits, back on their Wikipedia revision history. We’re hoping to bring this connectivity into WikiWash in the future, to make it easier to track a user’s edits and uncover spin.
+
+  p.faq-title Can I ‘follow’ a page? 
+  .indented Not quite yet. We’re hoping to bring this functionality into WikiWash in the future, though for now you can leave the tab open for that page, and any new edits to that page will be loaded in real time. 
+
+  p.faq-title How does WikiWash work? 
+  .indented WikiWash polls Wikipedia's API for recent updates to a page, and sends them to the browser through an open web socket. To show revision differences, we request two fully rendered Wikipedia pages and find the diffs between them. It's the requirement to have the API send us two fully-rendered pages that causes the slowness that you see sometimes. We're working on this ... 
+
+  p.faq-title What technologies does WikiWash use?
+  .indented We’ve used Node.js, Express.js, Socket.io and Angular.js to build WikiWash.
+
+  p.faq-title Does WikiWash work in Internet Explorer 6, Netscape Navigator, AOLonline, or any other ridiculously outdated browser?
+  .indented
+    img(src="/img/faq/no.gif")
+
+  p.faq-title I would love to sponsor you to continue building out this app ..
+  .indented And we’d love to talk to you. Please <a target="_blank" href="mailto:wikiwash@twg.ca">drop us a line</a>.
+

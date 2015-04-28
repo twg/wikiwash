@@ -1,5 +1,7 @@
 angular.module('wikiwash').controller('DiffController',
-  function($scope, $sce, _, revision) {
+  function($scope, $sce, _, revision, locationParams) {
+    $scope.getSiteVariants = locationParams.getSiteVariants;
+    $scope.locale = window.locale;
     $scope.$parent.loading = false;
     $scope.$parent.revisionBody = $sce.trustAsHtml(revision.data.content); 
     $scope.$parent.showAdded = true;

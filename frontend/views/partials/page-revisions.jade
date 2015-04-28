@@ -45,14 +45,14 @@
           p
             span(ng-i18next='[i18next]({edits:revisions.length,people:totalUsers})phrase.revs-edits-by-people')
             | 
-            {{ firstEditDate | date: 'mediumDate'}}
+            {{firstEditDate | date: 'mediumDate'}}
         .bottom-stats
           .edits-per-user
             p(ng-i18next='phrase.revs-avg-edits-user')
             p.number {{editsPerUser}}
           .time-between-edits
             p(ng-i18next='phrase.revs-avg-time-between')
-            p.number {{timeBetweenEdits}} Hours
+            p.number(ng-i18next='[i18next]({count:timeBetweenEdits})noun.revs-hours')
 
     .content-right(ng-show="noResults", ng-class="{active: tab=='article'}")
       .wikidiff.mw-headline(ng-i18next='phrase.revs-notfound')

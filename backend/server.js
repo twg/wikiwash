@@ -6,7 +6,6 @@ var partials = require('express-partials');
 var path = require('path');
 
 var config = require('./config/config');
-var routes = require('./config/routes');
 var events = require('./config/events');
 
 var log = require('./config/log').createLoggerForFile(__filename);
@@ -37,7 +36,7 @@ app.use(partials());
 
 app.set('views', path.join(publicDir, 'views'));
 
-app.use(routes);
+app.use(require('./config/routes'));
 events(io);
 
 http.listen(process.env.PORT || 3000, function() {
