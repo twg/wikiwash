@@ -29,7 +29,7 @@ angular.module('wikiwash').config(
             }
           },
           resolveFailed: {
-            templateUrl: 'templates/error.html',
+            templateUrl: 'errors/error.html',
             controller: 'ErrorController'
           }
         });

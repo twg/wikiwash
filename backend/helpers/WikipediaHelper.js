@@ -64,7 +64,9 @@ function getRevision(revisionId, _options) {
 }
 
 function getHTMLFromResponse(json) {
-  return JSON.parse(json).parse.text['*'];
+  var parsed = JSON.parse(json);
+
+  return parsed && parsed.parse && parsed.parse.text['*'];
 }
 
 function fetchAndCacheRevisionID(revisionID, options) {

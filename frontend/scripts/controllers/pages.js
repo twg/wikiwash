@@ -96,6 +96,10 @@ angular.module('wikiwash').controller('PagesController',
       }
     });
 
+    socketService.socket.on('hello', function(res) {
+      console.log("Connected to " + res.application + " server.");
+    });
+
     socketService.socket.on('revisions:push', function(res) {
       var revs = res.revisions || [ ];
 

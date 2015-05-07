@@ -1,5 +1,7 @@
 angular.module('wikiwash').factory('api', function($http) {
   function getRequestPromise(url) {
+    console.log({get: url})
+
     return $http({
       method: 'GET',
       url: url,

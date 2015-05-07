@@ -45,6 +45,8 @@ function clearPageUpdate(pagesController) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     log.info('Connection from ' + socket.conn.remoteAddress);
+
+    socket.emit('hello', { application: "WikiWash" });
     
     socket.on('revisions:subscribe', function(params) {
       clearPageUpdate(socket.pagesController);
