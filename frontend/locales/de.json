@@ -1,0 +1,39 @@
+{
+  "noun": {
+    "revs-edits": "1 Änderung",
+    "revs-edits_plural_0": "Keine Änderungen",
+    "revs-edits_plural": "__count__ Änderungen",
+    "revs-people": "1 User",
+    "revs-people_plural_0": "keine",
+    "revs-people_plural": "__count__ User",
+    "revs-hours" : "1 Stunde",
+    "revs-hours_plural": "__count__ Stunde"
+  },
+  "verb": {
+    "wash": "Waschen",
+    "removed": "Entfernt",
+    "added": "Hinzugefügt"
+  },
+  "phrase": {
+    "about": "Über",
+    "revs-edits-by-people": "$t(noun.revs-edits,{\"count\":__edits__}) von $t(noun.revs-people,{\"count\":__people__}) seit",
+    "revs-history": "Historie",
+    "revs-article": "Artikel",
+    "home-headline": "Wikipedia Updates in Echtzeit verfolgen.",
+    "home-tagline": "Lessen Sie aktuelle Artikel, schon während diese geschrieben werden.",
+    "home-howto": "Wie fünktioniert WikiWash",
+    "home-whatis": "Über WikiWash",
+    "home-sponsors": "WikiWash wird unterstützt von:",
+    "home-search": "Zum WASCHEN kopieren Sie hier bitte einen WIKIPEDIA-URL",
+    "home-whattowash": "Sie sind sich nicht sicher welchen Artikel Sie waschen möchten? Kein Problem, hier finden Sie die meistgelesen Artikel der letzten Stunde:",
+    "revs-realtime-edits": "Änderungen in Echtzeit",
+    "revs-download-csv": "Download der Historie als CSV",
+    "revs-avg-time-between": "Durchschnitt. Zeit zwischen Änderungen",
+    "revs-avg-edits-user": "Durschschnitt. Änderungen/User",
+    "revs-notfound": "Es besteht keine Wikipedia-Seite die der Anfrage entspricht. Versuchen Sie die Seite auf Wikipedia zu finden und kopieren Sie die URL in die Suchleiste.",
+    "revs-nocomment": "Es wurde kein Kommentar eingegeben.",
+    "revs-view": "Änderungen Anzeigen",
+    "revs-viewprevious": "Vorhergehende Einträge amzeigen",
+    "revs-viewgooglemaps": "Auf Google Maps anzeigen"
+  }
+}
