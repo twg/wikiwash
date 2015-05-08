@@ -40,15 +40,15 @@ router.get('/api/revisions/:id/:diff_id?', function(req, res) {
   }
 
   revisionsController.show(revisionId, { site: wikipediaSite(req) })
-    .then(function(data) { 
+    .then(function(data) {
       res.json(data);
     })
     .catch(function(err) {
-      console.error(err);
+      console.error("Error rendering diff: " + err);
       console.error(err.stack);
       
-      res.json({ error: "Could not render diff." });
-    })
+      res.status(500).json({ error: "Could not render diff." });
+    });
 });
 
 var suggestionsController = new SuggestionsController();
