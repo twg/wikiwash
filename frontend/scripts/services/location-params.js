@@ -2,7 +2,7 @@ angular.module('wikiwash').factory('locationParams',
   function($location) {
     return {
       getSiteVariants: function() {
-        var sites = [ 'en', 'fr', 'de' ];
+        var sites = [ 'en', 'de' ];
         var results = { };
 
         sites.forEach(function(lang) {
