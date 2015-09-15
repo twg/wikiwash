@@ -36,16 +36,7 @@ var rmPreviousRevisions = function(current, lastRevisionIds) {
 var pageData = function(body, lastRevisionIds) {
   // only one page returned
 
-  var json;
-
-  try {
-    json = JSON.parse(body);
-  }
-  catch (e) {
-    console.log('Failed to parse pageData JSON', e);
-    console.log('JSON body was:', body);
-    throw e;
-  }
+  var json = JSON.parse(body);
 
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
@@ -80,6 +71,7 @@ var pageData = function(body, lastRevisionIds) {
 function findRevisions(pageName, lastRevisionIds, callback) {
   var options = {
     method: 'GET',
+    https: true,
     host: endPoint,
     path: queryPath(pageName)
   };

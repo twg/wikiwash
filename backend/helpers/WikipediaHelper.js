@@ -18,6 +18,7 @@ function queryPath(revisionId) {
 function getRevision(revisionId) {
   var options = {
     method: 'GET',
+    ssl: true,
     host: endPoint,
     path: queryPath(revisionId)
   };
@@ -88,7 +89,7 @@ function getAndCacheRevisions(revisionIDs) {
     log.info("Fetching revision " + revisionID + " from cache...");
 
     var fetchStart = +new Date();
-    
+
     return cache.get(revisionID + cacheSuffix).then(function(reply) {
       if (reply) {
         var fetchEnd = +new Date();
@@ -137,7 +138,7 @@ function preemptivelyCache(revisionIDs) {
   cache.isActive().then(function(isActive) {
     if (isActive) {
       var cacheQueueBeingProcessed = (cacheQueue.length > 0);
-      
+
       cacheQueue.push.apply(cacheQueue, revisionIDs);
       cacheQueue = cacheQueue.slice(0, cacheQueueLimit);
 
