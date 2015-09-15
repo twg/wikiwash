@@ -36,7 +36,17 @@ var rmPreviousRevisions = function(current, lastRevisionIds) {
 var pageData = function(body, lastRevisionIds) {
   // only one page returned
 
-  var json = JSON.parse(body);
+  var json;
+
+  try {
+    json = JSON.parse(body);
+  }
+  catch (e) {
+    console.log('Failed to parse pageData JSON', e);
+    console.log('JSON body was:', body);
+    throw e;
+  }
+
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
@@ -78,7 +88,7 @@ function findRevisions(pageName, lastRevisionIds, callback) {
     return response.body.read();
   }).then(function(body) {
     data = pageData(body, lastRevisionIds);
-    
+
     WikipediaHelper.preemptivelyCache(
       data.revisions.map(function(e) { return e.revid; })
     );
