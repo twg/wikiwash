@@ -71,7 +71,7 @@ var pageData = function(body, lastRevisionIds) {
 function findRevisions(pageName, lastRevisionIds, callback) {
   var options = {
     method: 'GET',
-    https: true,
+    ssl: true,
     host: endPoint,
     path: queryPath(pageName)
   };
