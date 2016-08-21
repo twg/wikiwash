@@ -54,7 +54,7 @@ var bowerImageDependencies = [
 
 var paths = {
   scripts: [ 'frontend/scripts/**/*.js' ],
-  styles: [ 'frontend/styles/**/*.sass' ],
+  styles: [ 'frontend/styles/**/application.scss' ],
   views: [ 'frontend/views/**/*' ],
   public: [ 'frontend/public/**/*' ]
 };
@@ -112,7 +112,7 @@ gulp.task('icons', function() {
 gulp.task('styles', function() {
   return gulp.src(paths.styles)
     .pipe(sass({
-      style: 'expand',
+      outputStyle: 'expanded',
       includePaths: require('node-bourbon').includePaths,
       errLogToConsole: true
     }))
@@ -125,7 +125,10 @@ gulp.task('styles', function() {
 
 gulp.task('vendor-styles', function() {
   return gulp.src(bowerCssDependencies)
-    .pipe(sass({ style: 'expand', errLogToConsole: true }))
+    .pipe(sass({
+      outputStyle: 'expanded',
+      errLogToConsole: true
+    }))
     .pipe(minifycss({keepBreaks:true}))
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./public/css'))
