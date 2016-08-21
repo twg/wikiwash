@@ -59,57 +59,17 @@ See something that you'd like to change? We're all ears! Please, feel free to
 [fork](https://github.com/twg/wikiwash/fork) WikiWash on Github and submit a
 pull request to merge changes back into the application.
 
-## Deployment
+## Toolchain
 
-To deploy WikiWash to your own servers, you'll have to set up
-[PM2](https://github.com/Unitech/pm2) on your own servers and change
-[ecosystem.json](https://github.com/twg/wikiwash/blob/master/ecosystem.json)
-to point at your new server environments. Once that's done, deployment is as
-simple as:
+This project uses
 
-```
-$ bin/pm2 deploy production
-```
-
-Note that WikiWash integrates well with [Till](https://github.com/psobot/till),
-a cache server that helps speed up page requests from Wikipedia. Setting up a
-Till server is not required, but will make WikiWash noticeably faster for
-frequently-accessed pages. (An example configuration file for Till is included
-at `example/till.config.example.json`.)
-
-WikiWash also includes two example cronjobs (`wikiwash-fetch.cron` and
-`wikiwash-cache.cron`) that can run in the background to speed up WikiWash and
-to display the most-read Wikipedia articles from the last hour. Note that
-these cronjobs call scripts in the `scripts` folder, and do download large
-amounts of data from Wikimedia's dump server.
-
-## Libraries
-
-#### HTTP server
-
-* [NodeJS](http://nodejs.org/) - Platform for building fast, scalable network applications
-* [Express](http://expressjs.com/) - Web application framework
-
-#### HTML Pre-Processors
-
-* [Jade](http://jade-lang.com/) - HTML Template Engine
-
-#### Front-End Frameworks
-
-* [AngularJS](https://angularjs.org/) - JS framework
-
-#### Cache Servers
-
-* [Till](https://github.com/psobot/till) - local files/S3 cache server
-
-#### Package Management, Asset Build System
-
-* [npm](https://npmjs.org) - Node Packaged Modules
-* [Bower](http://bower.io) - The package manager for the web
-* [Gulp](http://gulpjs.com) - The streaming build system
-
-#### Deployment
-* [PM2](https://github.com/Unitech/pm2) - Process manager
-  * Modern CLI process manager for Node apps with a builtin load-balancer
-* [DigitalOcean](https://www.digitalocean.com/) - Cloud hosting provider
-  * [How To Use PM2 to Setup a Node.js Production Environment On An Ubuntu VPS](https://www.digitalocean.com/community/tutorials/how-to-use-pm2-to-setup-a-node-js-production-environment-on-an-ubuntu-vps)
+* [Angular](https://angularjs.org/) as a browser application framework
+* [Bower](http://bower.io) for front-end dependency management
+* [Express](http://expressjs.com/) as an http server framework
+* [Gulp](http://gulpjs.com) for our web application assembly
+* [Jade](http://jade-lang.com/) as our HTML template engine
+* [Mocha](https://mochajs.org/) for testing
+* [NodeJS](http://nodejs.org/) as a development environment
+* [npm](https://npmjs.org) for dependency management and build system
+* [PM2](https://github.com/Unitech/pm2) for deployment automation and process monitoring
+* [Till](https://github.com/psobot/till) as a local file/S3 cache server
