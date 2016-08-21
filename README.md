@@ -1,13 +1,14 @@
 
 # WikiWash
 
-Track whitewashing on Wikipedia. Try out WikiWash at [http://en.wikiwash.org/](http://en.wikiwash.org/)
+[![Build Status](https://img.shields.io/travis/twg/wikiwash.svg?style=flat)](https://travis-ci.org/twg/wikiwash) [![Coverage Status](https://img.shields.io/coveralls/twg/wikiwash.svg?style=flat)](https://coveralls.io/r/twg/wikiwash) [![Code Climate](https://img.shields.io/codeclimate/github/twg/wikiwash.svg?style=flat)](https://codeclimate.com/github/twg/wikiwash)
+
+Track whitewashing on Wikipedia.
 
 A project by [TWG](https://twg.io), in collaboration with
 the [Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
 [Metro News](http://metronews.ca/), and made possible by [Google Canada](http://googlecanada.blogspot.ca/).
 
-[![Build Status](https://img.shields.io/travis/twg/wikiwash.svg?style=flat)](https://travis-ci.org/twg/wikiwash) [![Coverage Status](https://img.shields.io/coveralls/twg/wikiwash.svg?style=flat)](https://coveralls.io/r/twg/wikiwash) [![Code Climate](https://img.shields.io/codeclimate/github/twg/wikiwash.svg?style=flat)](https://codeclimate.com/github/twg/wikiwash)
 
 ## Setup
 
