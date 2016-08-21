@@ -9,7 +9,6 @@ var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
 var rename = require('gulp-rename');
 var minifyHTML = require('gulp-minify-html');
-var templateCache = require('gulp-angular-templatecache');
 var jshint = require('gulp-jshint');
 var shell = require('gulp-shell');
 var order = require('gulp-order');
@@ -68,19 +67,6 @@ gulp.task('jade-view', function() {
   gulp.src(paths.views)
     .pipe(jade())
     .pipe(gulp.dest('./public/views'));
-});
-
-gulp.task('html-template', ['jade-view'], function() {
-  return gulp.src('./public/views/**/*')
-    .pipe(minifyHTML({
-      quotes: true
-    }))
-    .pipe(templateCache('templatescache.js', {
-      module: 'replanAppTemplatesCaches',
-      standalone: true,
-      root: './views/'
-    }))
-    .pipe(gulp.dest('public/js'))
 });
 
 gulp.task('scripts', function() {
@@ -185,7 +171,6 @@ gulp.task('nodemon', function() {
 gulp.task('build', [
   'html-public',
   'jade-view',
-  'html-template',
   'scripts',
   'styles',
   'icons',
