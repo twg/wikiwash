@@ -1,7 +1,7 @@
 
 # WikiWash
 
-Track whitewashing on Wikipedia. Try out WikiWash at [http://en.wikiwash.org/](http://en.wikiwash.org/)
+Track whitewashing on Wikipedia.
 
 A project by [TWG](https://twg.io), in collaboration with
 the [Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
