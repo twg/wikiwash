@@ -11,7 +11,7 @@ branches:
 
 script:
   - npm test
-  - bin/istanbul cover --root backend bin/_mocha --report lcovonly -- backend/test/* && cat ./coverage/lcov.info | bin/coveralls && rm -rf ./coverage
+  - ./node_modules/.bin/istanbul cover --root backend ./node_modules/.bin/_mocha --report lcovonly -- backend/test/* && cat ./coverage/lcov.info | bin/coveralls && rm -rf ./coverage
 
 notifications:
   email:
