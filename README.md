@@ -1,43 +1,30 @@
-    __            __  _   _      _                           _
-    \ \          / / (_) | |    (_)                         | |
-     \ \   /\   / /   _  | | __  _  __      __  __ _   ___  | |__
-      \ \ /  \ / /   | | | |/ / | | \ \ /\ / / / _` | / __| | '_ \
-       \   /\   /    | | |   <  | |  \ V  V / | (_| | \__ \ | | | |
-        \_/  \_/     |_| |_|\_\ |_|   \_/\_/   \__,_| |___/ |_| |_|
+
+# WikiWash
 
 Track whitewashing on Wikipedia. Try out WikiWash at [http://wikiwash.metronews.ca/](http://wikiwash.metronews.ca/)
 
-A project by [The Working Group](http://twg.ca), in collaboration with
-[the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
+A project by [TWG](https://twg.io), in collaboration with
+the [Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
 [Metro News](http://metronews.ca/), and made possible by [Google Canada](http://googlecanada.blogspot.ca/).
 
 [![Build Status](https://img.shields.io/travis/twg/wikiwash.svg?style=flat)](https://travis-ci.org/twg/wikiwash) [![Coverage Status](https://img.shields.io/coveralls/twg/wikiwash.svg?style=flat)](https://coveralls.io/r/twg/wikiwash) [![Code Climate](https://img.shields.io/codeclimate/github/twg/wikiwash.svg?style=flat)](https://codeclimate.com/github/twg/wikiwash)
 
-## Installation & Development
-
-```
-# Pull the code
-$ git clone git@github.com:twg/wikiwash.git
-$ cd wikiwash
-
-# Fetch package dependencies
-$ npm install
-$ bower install
-
-# Launch the dev server
-$ npm start
-$ open http://localhost:3000/
-```
+## Setup
 
 WikiWash requires [NodeJS](http://nodejs.org/) which can be installed either
 by downloading the installer or by using a package manager.
 
-Installation on Mac OS X is easiest with [Homebrew](http://brew.sh/):
 
-```bash
-# make sure you have node installed
-$ brew install node
 ```
+$ git clone git@github.com:twg/wikiwash.git
+$ cd wikiwash
+
+$ npm install
+$ bower install
+$ npm start
+```
+
+the application should now be available at [http://localhost:3000](http://localhost:3000).
 
 WikiWash has been developed on Mac OS X and deployed on Linux, but in theory,
 should work on any operating system. If you've tried running WikiWash on your
