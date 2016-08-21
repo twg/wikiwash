@@ -6,9 +6,9 @@
   "main": "backend/server.js",
   "author": "TWG",
   "scripts": {
-    "build": "bin/gulp build",
-    "start": "bin/gulp | bin/bunyan",
-    "test": "NODE_ENV=test bin/mocha backend/test/*"
+    "build": "./node_modules/.bin/gulp build",
+    "start": "./node_modules/.bin/gulp",
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha backend/test/*"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
