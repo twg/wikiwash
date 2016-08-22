@@ -15,6 +15,13 @@ var io = require('socket.io')(http);
 
 var frontendDir = path.join(__dirname, '..', 'frontend');
 
+// cors
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use('/frontend/assets', express.static(path.join(frontendDir, 'assets')));
 app.use('/img', express.static(path.join(frontendDir, 'assets', 'img')));
 
