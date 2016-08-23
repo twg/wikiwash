@@ -9,20 +9,21 @@ var config = require('../config/config');
 var cache = require('till')(config.cache.host, config.cache.port);
 var cacheSuffix = ".html";
 
-var endPoint = 'en.wikipedia.org';
+var endPoint = 'https://en.wikipedia.org';
 
 function queryPath(revisionId) {
   return "/w/api.php?action=parse&format=json&maxlag=5&oldid=" + revisionId;
 }
 
 function getRevision(revisionId) {
+  var url = endPoint + queryPath(revisionId);
+
   var options = {
     method: 'GET',
-    host: endPoint,
-    path: queryPath(revisionId)
+    url: url
   };
 
-  log.info("Making a " + options.method + " request to http://" + options.host + options.path);
+  log.info("Making a " + options.method + " request to " + url);
 
   var maxAttempts = 5;
   var pauseTime = 5000; //ms
