@@ -1,4 +1,6 @@
-angular.module('wikiwash').factory('api', function($http) {
+/* global angular */
+
+angular.module('wikiwash').factory('api', ['$http', function($http) {
   function getRequestPromise(url) {
     return $http({
       method: 'GET',
@@ -28,4 +30,4 @@ angular.module('wikiwash').factory('api', function($http) {
       return getRequestPromise("/api/suggestions");
     }
   };
-});
+}]);

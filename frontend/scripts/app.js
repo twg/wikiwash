@@ -1,3 +1,5 @@
+/* global angular */
+
 var wikiwash = { };
 
 angular.module('wikiwash', [

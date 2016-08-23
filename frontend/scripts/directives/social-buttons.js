@@ -1,5 +1,7 @@
+/* global angular */
+
 angular.module('wikiwash')
-.directive('socialButtons', function($window, $location) {
+.directive('socialButtons', ['$window', '$location', function($window, $location) {
   return {
     restrict: 'E',
     replace: true,
@@ -21,4 +23,4 @@ angular.module('wikiwash')
       };
     }
   };
-});
+}]);

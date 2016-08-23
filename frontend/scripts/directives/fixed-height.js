@@ -1,7 +1,9 @@
+/* global angular */
+
 angular.module('wikiwash')
   .directive(
     'fixedHeight',
-    function($window) {
+    ['$window', function($window) {
       return {
         scope: {
           offset: "@"
@@ -17,4 +19,4 @@ angular.module('wikiwash')
         }
       };
     }
-  );
+  ]);
