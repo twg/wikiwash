@@ -3,11 +3,14 @@ var Q = require('q');
 var _ = require('lodash');
 var fs = require('fs');
 
+var DiffFormatter = require('../helpers/DiffFormatter');
+
 var log = require('../config/log').createLoggerForFile(__filename);
 var config = require('../config/config');
 
 var cache = require('till')(config.cache.host, config.cache.port);
 var cacheSuffix = ".html";
+var cacheSuffixDiff = ".diff";
 
 var endPoint = 'en.wikipedia.org';
 
@@ -101,6 +104,53 @@ function getAndCacheRevisions(revisionIDs) {
   }));
 }
 
+function getRevisionsDiff(revisionIDs) {
+  if(revisionIDs.length == 2) {
+    var revisionsDiff = revisionIDs[1] + '-' + revisionIDs[0];
+    var fetchStart = +new Date();
+    return cache.get(revisionsDiff + cacheSuffixDiff).then(function(reply) {
+      if(reply) {
+        var fetchEnd = +new Date();
+        log.info("Found revisions diff " + revisionsDiff + " in cache. (took " + (fetchEnd - fetchStart) + " msec");
+        return JSON.parse(reply);
+      } else {
+        return getAndCacheRevisions(revisionIDs).then(function(blobs) {
+          return processAndCacheRevisionsDiff(revisionsDiff, blobs);
+        });
+      }
+    });
+  }
+
+  return getAndCacheRevisions(revisionIDs).then(function(blobs) {
+    return processAndCacheRevisionsDiff(revisionsDiff, blobs);
+  });
+}
+
+function processAndCacheRevisionsDiff(revisionsID, data) {
+
+  if(data.length == 2) {
+
+    var prevHtml = data[1];
+    var revHtml = data[0];
+
+    var diff = new DiffFormatter(revHtml, prevHtml).generateDiff();
+
+    var saveStart = +new Date();
+    cache.set(revisionsID + cacheSuffixDiff, JSON.stringify(diff)).then(function() {
+      var saveEnd = +new Date();
+      log.info("Saved revisions diff " + revisionsID + " to cache. (took " + (saveEnd - saveStart) + " msec)");
+    }).done();
+
+    return diff;
+  }
+
+  return {
+    content: data[0],
+    added: 0,
+    removed: 0
+  };
+}
+
 var cacheQueue = [ ];
 var cacheQueueLimit = 1000;
 
@@ -150,5 +200,6 @@ function preemptivelyCache(revisionIDs) {
 
 module.exports = {
   preemptivelyCache: preemptivelyCache,
-  getAndCacheRevisions: getAndCacheRevisions
+  getAndCacheRevisions: getAndCacheRevisions,
+  getRevisionsDiff: getRevisionsDiff
 };
