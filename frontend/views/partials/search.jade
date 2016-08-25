@@ -34,3 +34,7 @@
 
 .overlay(ng-show="$root.showModal" ng-click="$root.showModal = !$root.showModal")
 include ./about-modal
+script(type='text/javascript').
+  var searchPlaceholder = $('input[type=search]').attr('placeholder')
+  $('input[type=search]').click(function(e){e.target.placeholder='';})
+  $('input[type=search]').focusout(function(e){e.target.placeholder=searchPlaceholder;})
