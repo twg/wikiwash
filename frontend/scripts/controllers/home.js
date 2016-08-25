@@ -13,6 +13,11 @@ angular.module('wikiwash').controller('HomeController',
     });
 
     $scope.submit = function() {
+      if( ! $scope.pageName) {
+        $scope.invalidPageName = true;
+        return;
+      }
+      $scope.invalidPageName = false;
       $location.path(pageParser.getPageName($scope.pageName));
     };
     
