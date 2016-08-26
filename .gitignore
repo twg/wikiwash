@@ -5,3 +5,5 @@ public
 cache/*.html
 coverage
 data/*.json
+.vagrant
+*.log
