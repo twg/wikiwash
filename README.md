@@ -31,6 +31,28 @@ WikiWash has been developed on Mac OS X and deployed on Linux, but in theory,
 should work on any operating system. If you've tried running WikiWash on your
 own machine, feel free to edit this README to update the above instructions.
 
+### Vagrant Setup
+
+You can also try using a pre-configured Vagrant box to run WikiWash. This method will provide you with a standard development environment that you can use on any system.
+
+First you need to install the following:
+* [VirtualBox](https://www.virtualbox.org)
+* [Vagrant](http://vagrantup.com)
+
+Then run the following commands to setup the VM:
+```
+host $ git clone git@github.com:twg/wikiwash.git
+host $ cd wikiwash
+host $ vagrant up
+```
+Finally, login to the machine and you're good to go:
+```
+host $ vagrant ssh
+Welcome to Ubuntu 16.04.1 LTS (GNU/Linux 4.4.0-34-generic x86_64)
+...
+ubuntu@wikiwash-dev-box:~$ npm start
+```
+
 ## Issues & Contributions
 
 Found a problem with WikiWash? [Submit an issue](https://github.com/twg/wikiwash/issues/new)
