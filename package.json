@@ -19,7 +19,7 @@
     "country-code-lookup": "0.0.2",
     "coveralls": "^2.11.2",
     "event-stream": "^3.1.7",
-    "express": "~4.4.5",
+    "express": "~4.15.5",
     "express-csv": "^0.6.0",
     "express-partials": "^0.1.0",
     "fixmyjs": "^0.13.6",
@@ -37,7 +37,7 @@
     "q": "^1.0.1",
     "q-io": "^1.11.3",
     "request": "^2.48.0",
-    "socket.io": "1.1.0",
+    "socket.io": "2.0.2",
     "through": "^2.3.6",
     "till": "0.0.1"
   },
