@@ -22,15 +22,13 @@ var queryPath = function (pageName) {
 // there is an api option to return revisions starting at a given id:
 // *rvstartid* but it seems to be broken.
 var rmPreviousRevisions = function(current, lastRevisionIds) {
-  var newRevisions = current.filter(function(revision) {
+  return current.filter(function(revision) {
     var lastContainedInCurrent = lastRevisionIds.some(function(lastId) {
       return lastId === revision.revid;
     });
 
     return !lastContainedInCurrent;
   });
-
-  return newRevisions;
 };
 
 var pageData = function(body, lastRevisionIds) {
