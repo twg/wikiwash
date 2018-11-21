@@ -3,6 +3,8 @@
 @import "bourbon";
 @import "font-awesome";
 
+$error: #F44;
+
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -120,6 +122,9 @@ span.light {
   @media (max-width: 600px){
     margin-top: 20px;
   }
+  .error {
+    color: $error;
+  }
 }
 
 .search-splash input.bar {
@@ -138,6 +143,10 @@ span.light {
   }
   &:focus{
     border: 2px solid #00A7CE;
+    outline: 0;
+  }
+  &.invalid{
+    border: 2px solid $error;
     outline: 0;
   }
 }
