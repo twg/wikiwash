@@ -5,7 +5,7 @@ var geoip = require('geoip-lite');
 var country = require('country-code-lookup');
 var log = require('../config/log').createLoggerForFile(__filename);
 
-var endPoint = 'en.wikipedia.org';
+var endPoint = 'https://en.wikipedia.org';
 
 var revisionRequestLimit = 50;
 
@@ -16,8 +16,8 @@ var queryPath = function (pageName) {
          "format=json&" +
          "rvprop=ids|user|userid|comment|timestamp|flags|size&" +
          "rvlimit=" + revisionRequestLimit + "&" +
-         "titles=" + encodeURIComponent(pageName)
-}
+         "titles=" + encodeURIComponent(pageName);
+};
 
 // there is an api option to return revisions starting at a given id:
 // *rvstartid* but it seems to be broken.
@@ -68,6 +68,9 @@ var pageData = function(body, lastRevisionIds) {
       }
     }
 
+    //Create permant link to revition
+    rev.permanentLink = endPoint + "/w/index.php?title=Help:User_contributions&oldid="+ rev.revid;
+
     return rev;
   });
 
@@ -78,16 +81,17 @@ var pageData = function(body, lastRevisionIds) {
 };
 
 function findRevisions(pageName, lastRevisionIds, callback) {
+  var url = endPoint + queryPath(pageName);
+  
   var options = {
     method: 'GET',
-    host: endPoint,
-    path: queryPath(pageName)
+    url: url
   };
-
+  
   http.request(options).then(function(response) {
     return response.body.read();
   }).then(function(body) {
-    data = pageData(body, lastRevisionIds);
+    var data = pageData(body, lastRevisionIds);
 
     WikipediaHelper.preemptivelyCache(
       data.revisions.map(function(e) { return e.revid; })
@@ -95,7 +99,7 @@ function findRevisions(pageName, lastRevisionIds, callback) {
 
     callback(undefined, data);
   }).done();
-};
+}
 
 module.exports = {
   findRevisions: findRevisions

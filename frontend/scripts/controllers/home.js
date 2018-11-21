@@ -1,4 +1,8 @@
+/* global angular */
+
 angular.module('wikiwash').controller('HomeController',
+  [
+  '$scope', '$location', 'socketService', 'pageParser', 'suggestions',
   function($scope, $location, socketService, pageParser, suggestions) {
     $scope.pageName = '';
     $scope.revisions = [ ];
@@ -21,4 +25,4 @@ angular.module('wikiwash').controller('HomeController',
       socketService.cycling = false;
     }
   }
-);
+]);

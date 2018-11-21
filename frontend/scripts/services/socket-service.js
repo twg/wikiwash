@@ -1,8 +1,10 @@
+/* global angular */
+
 angular.module('wikiwash').factory('socketService',
-  function(socketFactory) {
+  ['socketFactory', function(socketFactory) {
     return {
       socket: socketFactory(),
       cycling: false
     };
   }
-);
+]);

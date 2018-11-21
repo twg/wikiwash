@@ -1,4 +1,7 @@
+/*global angular  */
 angular.module('wikiwash').controller('PagesController',
+  ['$scope', '$location', '$routeParams', '$routeSegment', '$http',
+    '$anchorScroll', 'locationParams', 'socketService', '_', 'pageParser',
   function(
     $scope,
     $location,
@@ -171,7 +174,7 @@ angular.module('wikiwash').controller('PagesController',
 
     $scope.sessionCsv = function() {
       var csv = [
-        [ 'Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment' ]
+        [ 'Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Rev Url' ]
       ];
 
       $scope.revisions.forEach(function(rev) {
@@ -181,7 +184,7 @@ angular.module('wikiwash').controller('PagesController',
           rev.minor,
           rev.timestamp,
           rev.size,
-          rev.comment
+          rev.permanentLink,
         ]);
       });
 
@@ -203,4 +206,4 @@ angular.module('wikiwash').controller('PagesController',
       $scope.tab = 'article';
     };
   }
-);
+]);

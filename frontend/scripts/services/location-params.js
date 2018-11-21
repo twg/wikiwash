@@ -1,5 +1,7 @@
+/* global angular */
+
 angular.module('wikiwash').factory('locationParams',
-  function($location) {
+  ['$location', function($location) {
     return {
       getCurrentRevId: function() {
         if ($location.path().split("/").length > 2) {
@@ -17,4 +19,4 @@ angular.module('wikiwash').factory('locationParams',
       }
     };
   }
-);
+]);

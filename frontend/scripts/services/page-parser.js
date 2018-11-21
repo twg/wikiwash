@@ -1,4 +1,6 @@
-angular.module('wikiwash').factory('pageParser', function() {
+/* global angular */
+
+angular.module('wikiwash').factory('pageParser',[function() {
   return {
     getPageName: function (url) {
       return url.replace(/(en\.)?wikipedia.org\/wiki\//, "")
@@ -6,4 +8,4 @@ angular.module('wikiwash').factory('pageParser', function() {
           .replace(/ /g, "_");
     }
   };
-});
+}]);

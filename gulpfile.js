@@ -78,9 +78,9 @@ gulp.task('scripts', function() {
     ]))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
-    .pipe(uglify({ mangle: false }))
+    .pipe(uglify())
     .pipe(concat('application.js'))
-    .pipe(gulp.dest('./public/js'))
+    .pipe(gulp.dest('./public/js'));
 });
 
 // Fonts
